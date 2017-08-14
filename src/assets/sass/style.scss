@@ -1,0 +1,19 @@
+@import 'tool/index';
+@import 'variables';
+@import 'mixin';
+@import 'awesome/awesome';
+@import 'base';
+@import 'devices';
+@import 'animate';
+@import 'vue-animate';
+@import 'form';
+
+body{
+	color:#333;
+	margin:0;
+}
+@import 'compontent';
+@import 'element-modify';
+@import 'page/ishow';
+@import 'page/ishowList';
+@import 'qyf';

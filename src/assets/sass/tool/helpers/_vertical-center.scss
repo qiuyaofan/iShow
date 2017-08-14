@@ -1,0 +1,62 @@
+@charset "UTF-8";
+// // demo
+// .one {
+// 	@include position-center {
+// 		width: 300px;
+// 		height: 300px;
+// 		margin: auto;
+// 	}
+// }
+// .two {
+// 	@include flex-center {
+// 		background-color: #000;
+// 		border-radius: 3px;
+// 	}
+// }
+// .three {
+//     @include transform-center {
+// 		background-color: #000;
+// 		border-radius: 3px;
+//     }
+// }
+@mixin position-center($position:absolute) {
+    @include position($position, 0 0 0 0);
+    @content;
+}
+
+@mixin flex-center {
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    @content;
+}
+
+@mixin transform-center($horizontal:50%,$vertical:50%) {
+    @include position(absolute, $horizontal null null $vertical);
+    @if not $vertical {
+		@include transform(translateX(-50%));
+    }@else if not $horizontal{
+    	@include transform(translateY(-50%));
+    }@else{
+    	@include transform(translate(-50% -50%));
+    }
+
+    @content;
+}
+
+@mixin ghost-center($child:'.content'){
+  ::before{
+  	  content: " ";
+	  display: inline-block;
+	  height: 100%;
+	  width: 1%;
+	  vertical-align: middle;
+  }
+  #{$child}{
+  	display: inline-block;
+  	vertical-align: middle;
+  }
+}
+
+
+

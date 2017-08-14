@@ -1,0 +1,11 @@
+@mixin transform($property: none) {
+  @include prefixer(transform, $property);
+}
+
+@mixin transform-origin($axes: 50%) {
+  @include prefixer(transform-origin, $axes);
+}
+
+@mixin transform-style($style: flat) {
+  @include prefixer(transform-style, $style);
+}
