@@ -1,0 +1,41 @@
+//右侧编辑部分
+.form-group {
+    padding: 10px 0;
+    @extend %clearfix;
+    label {
+        float: left;
+        width: auto;
+        margin-right: 8px;
+        text-align: right;
+        // width: 65px;
+        &.w6em{
+          width:6em;
+
+        }
+    }
+    .form-center {
+        float: left;
+        line-height: 1;
+    }
+    .form-right {
+        float: right;
+        line-height: 1;
+    }
+}
+
+.form-list{
+    label{
+        line-height: 38px;
+    }
+    .form-item{
+        float:left;
+        display: inline-block;
+    }
+}
+
+.form-textarea{
+    textarea{
+        resize:none;
+    }
+    
+}

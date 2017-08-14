@@ -1,0 +1,26 @@
+@mixin transition-properties($name: transition-duration,$value:1s) {
+  @include prefixer($name, $value);
+}
+
+@mixin transition($value: width 2s) {
+  @include prefixer(transition,$value);
+}
+
+
+@mixin transition-duration($time: 1s) {
+  @include prefixer(transition-duration, $time);
+}
+
+@mixin transition-delay($time: 1s) {
+  @include prefixer(transition-delay, $time);
+}
+
+
+@mixin transition-timing-function($type: linear) {
+  @include prefixer(transition-timing-function, $type);
+}
+
+
+@mixin transition-property($type: all) {
+  @include prefixer(transition-property, $type);
+}

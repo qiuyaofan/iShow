@@ -1,0 +1,8 @@
+@mixin perspective($depth: none) {
+  @include prefixer(perspective, $depth);
+}
+
+@mixin perspective-origin($value: 50% 50%) {
+
+  @include prefixer(perspective-origin, $value);
+}

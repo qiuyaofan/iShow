@@ -1,0 +1,410 @@
+<template>
+
+    <div class="element-wrapper dragged" v-bind:class="{ active:isActive}" v-bind:id="id" v-bind:ctype="type" @click.stop="" :style="{
+          top: cursorTop + 'px',
+          left: cursorLeft + 'px',
+          width: elWidth + 'px',
+          height: elHeight + 'px',
+          zIndex:zIndex,
+          transform:'rotate('+rotate+'deg)',
+        }">
+        <!-- 普通文本 -->
+        <div v-if="type===1" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_text element-item_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)" v-html="content"></div>
+            </div>
+        </div>
+        <!-- 图片 -->
+        <div v-if="type===2" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <img :src="content" alt="" class="element-item_img element-item_drap" :style="{
+                    width: elWidth + 'px',
+                    height: elHeight + 'px'
+                  }">
+                </div>
+            </div>
+        </div>
+        <!-- 输入框 -->
+        <div v-if="type===3" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <textarea :name="json.form.name" :placeholder="json.form.cname" class="element-item_textarea" :style="{
+                    width: elWidth + 'px',
+                    height: elHeight + 'px'
+                  }">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <!-- 单选 -->
+         <div v-if="type===4" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_drap element-item_radio tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                    <el-radio-group v-model="radio1" :class="{vertical:json.form.dire==='v'}">
+                        <el-radio v-for="(radioItem, index) in json.form.options" :label="radioItem.id" :key="radioItem.id">{{radioItem}}</el-radio>
+                    </el-radio-group>
+                </div>
+            </div>
+        </div>
+        <!-- 多选 -->
+         <div v-if="type===5" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_drap element-item_checkbox tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                    <el-checkbox-group v-model="checkbox1" :class="{vertical:json.form.dire==='v'}">
+                        <el-checkbox v-for="(radioItem2, index2) in json.form.options" :label="radioItem2.id" :key="radioItem2.id">{{radioItem2}}</el-checkbox>
+                    </el-checkbox-group>
+                </div>
+            </div>
+        </div>
+        <!-- 下拉框 -->
+         <div v-if="type===6" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_drap element-item_select tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <el-select :value="json.form.options[json.form.selectedVal]" :style="{'font-size':json.text.fontSize+'px'}">
+                        <el-option
+                              v-for="(selectItem,selectIndex) in json.form.options"
+                              :key="selectIndex"
+                              :label="selectItem"
+                              :value="selectIndex">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+        </div>
+        <!-- 按钮 -->
+        <div v-if="type===7" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+            <div class="element-contents text-item">
+                <div class="element-item element-item_drap element-item_button tc" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <a class="element-item_button_a" :href="json.form.link" :style="{
+                    width: elWidth + 'px',
+                    height: elHeight + 'px',
+                    'line-height':elHeight + 'px',
+                    color:json.text.color
+                  }">{{json.form.name}}</a>
+                </div>
+            </div>
+        </div>
+        <dragSize :el-width="elWidth" :el-height="elHeight" :cursor-top="cursorTop" :cursor-left="cursorLeft" v-show="isActive">
+        </dragSize>
+    </div>
+</template>
+<script>
+// @input="changeText"
+//v-html="content"
+import bus from 'views/ishow/js/bus';
+import draggable from 'views/ishow/js/draggable';
+import dragSize from 'views/ishow/global/dragSize.vue';
+//兼容禁止点击移动元素
+let isDragging = false;
+export default {
+    data() {
+            return {
+                json:  this.parseJson(this.childJson),
+                id: 0,
+                textJson: '',
+                animateJson: '',
+                cursorTop: 0,
+                cursorLeft: 0,
+                modifyData: {},
+                content: this.childJson.content,
+                elWidth: this.childJson.width,
+                elHeight: this.childJson.height,
+                zIndex: this.childJson.zIndex,
+                isActive: false,
+                lastRange: '',
+                caretPos: 0,
+                boxShadow: '',
+                rotate: 0,
+                animateIndex: 0,
+                stopEndCallback: false,
+                radio1:'',
+                checkbox1:'',
+                startPos:[0,0]
+            }
+        },
+        props: ['childJson', 'showJson', 'type', 'showId'],
+        components: {
+            dragSize
+        },
+        created() {
+            //设置showId 
+            bus.$on('remove-selected', function() {
+                this.isActive = false;
+            }.bind(this));
+            //动画修改播放效果
+            bus.$on('animate-change', function(_index) {
+
+                if (this.id === this.showId) {
+                    this.animateIndex = _index;
+                    this.stopEndCallback = true;
+                    this.initJson(true);
+                }
+            }.bind(this));
+
+            //动画修改播放效果
+            bus.$on('animate-init', function() {
+                if (this.id === this.showId) {
+                    this.animateIndex = 0;
+                }
+            }.bind(this));
+
+            //预览动画修播放效果
+            bus.$on('animate-preview', function() {
+                 if (this.id === this.showId) {
+                let animates = this.parseJson(this.json.animate);
+                this.animateJson = {};
+                this.animateIndex = 0;
+                this.stopEndCallback = false;
+                setTimeout(function() {
+                    this.animateJson = animates;
+                    this.initJson(true);
+                }.bind(this), 10)
+
+                 }
+            }.bind(this));
+
+            //设置showId 
+            bus.$on('drap-size-update', function(w, h, t, l) {
+                if (this.isActive) {
+                    this.elWidth = w;
+                    this.elHeight = h;
+                    this.cursorTop = t;
+                    this.cursorLeft = l;
+                    this.triggerApp();
+                }
+
+            }.bind(this));
+            // console.info(this.childJson)
+
+        },
+        watch: {
+            childJson: {
+                handler(val, oldVal) {
+                    if (!this.jsonEq(val, oldVal)) {
+                        this.initJson(true);
+                    }
+                },
+                deep: true
+            },
+            
+        },
+
+        methods: {
+            //json是否相等
+            jsonEq(val1, val2) {
+                return JSON.stringify(val1) === JSON.stringify(val2);
+            },
+            //初始化
+            initJson(isAni) {
+                this.json = JSON.parse(JSON.stringify(this.childJson));
+                this.id = this.json.id;
+                this.modifyJson();
+                this.textJson = this.json.text;
+                this.content = this.json.content;
+                this.cursorTop = this.json.position.top;
+                this.cursorLeft = this.json.position.left;
+                this.zIndex = this.json.zIndex;
+                this.rotate = this.textJson.rotate;
+                this.elWidth = this.json.width;
+                this.elHeight = this.json.height;
+                if (isAni) {
+                    this.initAnimate();
+                    this.modifyAnimate();
+                } else {
+                    this.animateJson = {};
+                }
+
+                //this.animateJson=this.json.animate.length?this.json.animate[0]:{};
+                //设置宽高
+                this.changeWH(); 
+            },
+            changeWH() {
+                let rect = this.$el.querySelector('.element-item_drap').getBoundingClientRect();
+                if (this.elWidth === 'auto') {
+                    this.elWidth = rect.width+2;
+                    this.triggerApp();
+                }
+                if (this.elHeight === 'auto') {
+                    this.elHeight = rect.height * this.elWidth / rect.width;
+                    this.triggerApp();
+                }
+            },
+            initAnimate() {
+                this.animateJson = this.json.animate && this.json.animate.length ? this.json.animate[this.animateIndex] : {};
+            },
+            //修正样式值
+            modifyJson() {
+                this.modifyData.opacity = this.json.text.opacity * 0.01;
+
+                this.modifyData.boxShadow = this.handleShadowDire();
+                for (let val in this.json.text) {
+                    if (val === 'fontSize' || val === 'padding' || val === 'borderWidth' || val === 'borderRadius') {
+                        this.modifyData[val] = this.json.text[val] + 'px';
+                    }
+                }
+
+            },
+            //处理animate 时间单位
+            modifyAnimate() {
+                if (this.json.animate && this.json.animate.length) {
+                    let index = this.animateIndex;
+                    this.modifyData.animationDuration = this.json.animate[index].animationDuration + 's';
+                    this.modifyData.animationDelay = this.json.animate[index].animationDelay + 's';
+                }
+            },
+            //处理阴影方向值
+            handleShadowDire() {
+                let width = this.json.text.shadowWidth;
+                if (!width) {
+                    return 'none';
+                }
+                let arr = [
+                    [1, -1],
+                    [-1, -1],
+                    [-1, 1],
+                    [1, 1]
+                ];
+                let result = [];
+                let dire = this.json.text.shadowDire;
+
+                let arrVal = [
+                    [0, width],
+                    [width, 0],
+                    [0, -width],
+                    [-width, 0]
+                ];
+                let angle = 90 / width;
+                let index = Math.floor(dire / 90);
+                let count = Math.floor(dire % 90 / angle);
+                if (index === 4) {
+                    index = 0;
+                }
+                result[0] = arrVal[index][0] + arr[index][0] * count;
+                result[1] = arrVal[index][1] + arr[index][1] * count;
+                return this.json.text.shadowColor + ' ' + result[0] + 'px ' + result[1] + 'px ' + this.json.text.shadowRadius + 'px';
+            },
+            //选择元素
+            selectElement() {
+                //移除其他元素active
+                bus.$emit('remove-selected');
+                //触发设置showid
+                bus.$emit('set-elementId', this.id);
+
+                //设置模版tab：编辑状态
+                bus.$emit('change-tab', 'second');
+                // this.isEditable=true;
+                this.isActive = true;
+            },
+            //右键选择元素
+            rightClick(e) {
+                if (e.button === 2) {
+                    this.selectElement();
+                    //显示右键操作菜单
+                    bus.$emit('button2-menu-show', e, this.id);
+                    return false;
+                }
+            },
+            //拖拽更新位置
+            handleDrag(event) {
+                let x = event.clientX;
+                let y = event.clientY;
+                this.cursorLeft=x-this.startPos[0]+this.cursorLeft;
+                this.cursorTop=y-this.startPos[1]+this.cursorTop;
+                this.startPos=[x,y];
+            },
+            //修改json，触发更新json父元素方法
+            triggerApp() {
+                this.json.position.top = this.cursorTop;
+                this.json.position.left = this.cursorLeft;
+                this.json.content = this.content;
+                this.json.width = this.elWidth;
+                this.json.height = this.elHeight;
+                this.json.text.rotate = this.rotate;
+                let data = this.parseJson(this.showJson);
+                data = this.converJson(data);
+                data[this.id] = this.json;
+                bus.$emit('update-json', data);
+            },
+            //转换showJson to renderJson
+            converJson: function(data) {
+                const result = {};
+                for (var i = data.length - 1; i >= 0; i--) {
+                    result[data[i].id] = data[i];
+                }
+                return result;
+            },
+            //深拷贝
+            parseJson(json) {
+                return JSON.parse(JSON.stringify(json));
+            },
+
+            whichAnimationEvent() {
+                let t;
+                let el = document.createElement('fakeelement');
+                let animations = {
+                    'animation': 'animationend',
+                    'Webkitanimation': 'webkitAnimationEnd'
+                }
+
+                for (t in animations) {
+                    if (el.style[t] !== undefined) {
+                        return animations[t];
+                    }
+                }
+            },
+            //更新animateIndex并播放动画
+            handleAniIndex(index) {
+                let ani = this.json.animate;
+                if (ani && ani.length - 1 > index) {
+                    this.animateIndex = index + 1;
+                    this.initJson(true);
+                }
+            },
+            //动画结束调用下一个动画
+            addAnimateEnd(e) {
+                let animationEvent = this.whichAnimationEvent();
+                let index;
+                animationEvent && e.addEventListener(animationEvent, function(e) {
+                    index = this.animateIndex;
+                    this.endCallback(index);
+                }.bind(this));
+            },
+            endCallback(index) {
+                if (this.stopEndCallback === false) {
+                    this.handleAniIndex(index);
+                } else {
+                    this.stopEndCallback = false;
+                }
+            }
+
+        },
+        mounted() {
+            //绑定结束事件
+            let target = this.$el.querySelector('.element-wrapper_main');
+            this.addAnimateEnd(target);
+            this.initJson(true);
+
+            draggable(this.$el, {
+                start: (event) => {
+                    this.startPos=[event.x,event.y];
+                },
+                drag: (event) => {
+                    this.handleDrag(event);
+                    isDragging = true;
+                },
+                end: (event) => {
+                    if (isDragging) {
+                        this.handleDrag(event);
+                        this.triggerApp();
+                        isDragging = false;
+                    }
+                }
+            });
+
+
+        }
+};
+</script>

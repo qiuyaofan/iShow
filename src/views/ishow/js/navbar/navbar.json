@@ -1,0 +1,96 @@
+{
+  "navbarJsons": [{
+        "name": "我的上传",
+        "activeName": "upload"
+    }, {
+        "name": "图片库",
+        "activeName": "pic"
+    }, {
+        "name": "最近使用",
+        "activeName": "recent"
+    }],
+  "picJsons": [{
+        "url": "https://img.kxz.com/assets/kxz/compositionEditor_20170216/e51c2952-30c0-4c6c-baa1-cb06cb125014.png"
+    }, {
+        "url": "https://img.kxz.com/assets/kxz/compositionEditor_20170216/c611ec71-8110-4ae5-b086-8423eb48981f.png"
+    }],
+    "inputDefault":[{
+        "label":"自定义",
+        "name":"customize"
+    },{
+        "label":"姓名",
+        "name":"name"
+    },{
+        "label":"手机",
+        "name":"mobile"
+    },{
+        "label":"邮箱",
+        "name":"email"
+    },{
+        "label":"生日",
+        "name":"birthday"
+    },{
+        "label":"性别",
+        "name":"sex"
+    }],
+    "validateDefault":[{
+        "label":"整数",
+        "name":"integer",
+        "range":false
+    },{
+        "label":"中文",
+        "name":"checkChinese",
+        "range":false
+    },{
+        "label":"邮件格式",
+        "name":"email",
+        "range":false
+    },{
+        "label":"手机格式",
+        "name":"mobile",
+        "range":false
+    },{
+        "label":"生日",
+        "name":"birthday",
+        "range":false
+    },{
+        "label":"字符长度",
+        "name":"validateString",
+        "range":true
+    },{
+        "label":"数字与数字范围",
+        "name":"number",
+        "range":true
+    }],
+    "selectDefaults":{
+        "sex":[
+            "请选择性别",
+            "男",
+            "女"
+        ],
+        "degree":[
+            "请选择学历",
+            "小学",
+            "初中",
+            "高中",
+            "中专",
+            "本科",
+            "大专"
+        ],
+        "age":[
+            "请选择年龄",
+            "0-18岁",
+            "18-30岁",
+            "30-40岁",
+            "40-50岁",
+            "50岁以上"
+        ],
+        "income":[
+            "请选择收入",
+            "1000-3000",
+            "3000-6000",
+            "6000-1万",
+            "1万以上"
+        ]
+    }
+}
