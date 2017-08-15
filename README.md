@@ -9,15 +9,18 @@ Now, the editor is still missing a lot of ways, the phone side has not finished,
   
 #### 设置
 
-[![编辑器截图]](https://note.youdao.com/yws/api/group/7193078/noteresource/350388A0F6F1484EB37C7C759EF5F75D/version/26?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 )
+![ishow](https://note.youdao.com/yws/api/group/7193078/noteresource/350388A0F6F1484EB37C7C759EF5F75D/version/26?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 "ishow")
 
 #### 选择图片
 
-[![编辑器截图]](https://note.youdao.com/yws/api/group/7193078/noteresource/56C821E765B444D5B5FB7DCA22251D96/version/27?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 )
+
+![ishow](https://note.youdao.com/yws/api/group/7193078/noteresource/56C821E765B444D5B5FB7DCA22251D96/version/27?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 "ishow")
 
 #### 列表打开页面-编辑
 
-[![编辑器截图]](https://note.youdao.com/yws/api/group/7193078/noteresource/E00E381E8D1F4AEDB969339679315E28/version/28?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 )
+
+![ishow](https://note.youdao.com/yws/api/group/7193078/noteresource/E00E381E8D1F4AEDB969339679315E28/version/28?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 "ishow")
+
 
    
  
