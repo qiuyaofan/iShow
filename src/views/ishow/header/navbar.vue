@@ -6,8 +6,13 @@
             <el-menu-item index="2">
                 <div @click="showTool('picTool')">图片&nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></div>
             </el-menu-item>
-            <el-menu-item index="4">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></el-menu-item>
-            <el-menu-item index="5">音频&nbsp;<i class="fa fa-music" aria-hidden="true"></i></el-menu-item>
+            <el-menu-item index="5">
+                <div @click="showTool('videoTool')">音频&nbsp;<i class="fa fa-music" aria-hidden="true"></i></div>
+            </el-menu-item>
+            <el-menu-item index="4">
+                <div @click="showTool('videoTool2')">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></div>
+            </el-menu-item>
+            
             <el-submenu index="3">
                 <template slot="title">表单&nbsp;<i class="fa fa-bars" aria-hidden="true"></i></template>
                 <el-menu-item index="3-1">输入框</el-menu-item>
@@ -17,9 +22,7 @@
                 <el-menu-item index="3-5">按钮</el-menu-item>
             </el-submenu>
             <el-menu-item index="6" >
-                <picTool :type="'bg'" :picJson="picJson" ref="picTool2" :addBg="addBg" :ratio="0.695">
-                    <div @click="showTool('picTool2')" id="J-open-bg">背景&nbsp;<i class="fa fa-file-image-o" aria-hidden="true"></i></div>
-                </picTool>
+                 <div @click="showTool('picTool2')" id="J-open-bg">背景&nbsp;<i class="fa fa-file-image-o" aria-hidden="true"></i></div>
             </el-menu-item>
         </el-menu>
         <!-- 打开图片裁切页面的钩子 -->
@@ -82,6 +85,9 @@
             </div>
         </el-dialog>
         <picTool :type="'pic'" :picJson="picJson" ref="picTool" :addElement="addPicElement"></picTool>
+        <picTool :type="'bg'" :picJson="picJson" ref="picTool2" :addBg="addBg" :ratio="0.695"></picTool>
+        <videoTool :type="'audio'" :jsonData="audioJson" ref="videoTool"></videoTool>
+        <videoTool :type="'video'" :jsonData="videoJson" ref="videoTool2"></videoTool>
     </div>
 </template>
 <script>
@@ -95,9 +101,12 @@ import inputLayer from './input-layer.vue';
 // import picLayer from './pic-layer.vue';
 // import crop from 'views/ishow/global/crop/crop.vue';
 import picTool from 'views/ishow/global/picTool/index.vue';
+import videoTool from 'views/ishow/global/videoTool/index.vue';
 import {
     getImgList,
-    getValidateList
+    getValidateList,
+    getAudioList,
+    getVideoList
 } from 'api/ishow';
 const maxRadio = 8;
 const loadingUrl = "static/loading.gif";
@@ -145,12 +154,14 @@ export default {
                 formDialogVisible4: false,
                 formDialogVisible5: false,
                 dialogVisible2:false,
-                previewPicSrc:'',
+                // previewPicSrc:'',
                 // currentPage: 4,
                 isActive: false,
                 activeName: 'upload',
                 navbarJson: navarJson["navbarJsons"],
                 picJson: [],
+                audioJson:[],
+                videoJson:[],
                 isBg:false,
                 // uploadUrl: this.$store.state.app.uploadUrl,
                 //单选
@@ -180,7 +191,8 @@ export default {
             selectLayer,
             buttonLayer,
             inputLayer,
-            picTool
+            picTool,
+            videoTool
             // picLayer,
             // crop
         },
@@ -198,10 +210,10 @@ export default {
             }.bind(this));
 
             //预览图片
-            bus.$on('navbar-preview', function(src) {
-                this.dialogVisible2=true;
-                this.previewPicSrc=src;
-            }.bind(this));
+            // bus.$on('navbar-preview', function(src) {
+            //     this.dialogVisible2=true;
+            //     this.previewPicSrc=src;
+            // }.bind(this));
 
             //编辑
             bus.$on('update-target', function(data,id) {
@@ -210,29 +222,53 @@ export default {
             }.bind(this));
 
             //图片关闭弹层
-            bus.$on('handle-navbar-layer', function(name,isShow) {
-                this[name]=isShow;
-            }.bind(this));
+            // bus.$on('handle-navbar-layer', function(name,isShow) {
+            //     this[name]=isShow;
+            // }.bind(this));
             //背景裁切使用
             bus.$on('navbar-bg-handle', function(isShow,url) {
                 this.dialogVisible3=isShow;
-                console.info(url)
                 this.croodUrl=url;
             }.bind(this));
             //图片裁切
             bus.$on('navbar-image-handle', function(isShow,url) {
                 this.dialogVisible4=isShow;
-                console.info(url)
                 this.croodUrl2=url;
             }.bind(this));
 
             //获取图片列表
-            this.fetchImgList();
+            this.fetchImgList().then(function(data){
+                this.setLoading('picTool');
+                this.setLoading('picTool2');
+            }.bind(this));
+            //获取音频列表
+            // console.info(1111,this.fetchAudioList());
+            this.fetchAudioList().then(function(data){
+                this.setLoading('videoTool');
+            }.bind(this));
+            //获取视频列表
+            this.fetchVideoList().then(function(data){
+                this.setLoading('videoTool2');
+            }.bind(this));
             //获取验证字段
             this.fetchValidateJson();
         },
         watch: {},
         methods: {
+            //设置loading
+            setLoading(name) {
+                this.$refs[name].setLoading(false);
+            },
+            confirmForm(data, type) {
+                if(this.judgeCnameExist(type,data)===true){
+                    this.$message.error('中文名重复了，请修改');
+                    return false;
+                }
+                let result = this.parseJson(data);
+                this.addElement(type, {
+                    form: result
+                });
+            },
             //打开图片选择工具
             showTool(name,cropUrl) {
                 this.$refs[name].openTool(cropUrl);
@@ -258,7 +294,6 @@ export default {
             },
             fetchValidateJson() {
                 getValidateList().then(response => {
-                    console.info(response.data)
                     this.validateDefault=this.handleValidateDefault(response.data);
                 }).catch(err => {
                     console.info(err)
@@ -268,6 +303,9 @@ export default {
             handleValidateDefault(data) {
                 let result={};
                 let type,len=data.length;
+                if(!len){
+                    return result;
+                }
                 for (let i = 0; i < len; i++) {
                     result[data[i].type]=[]; 
                 }
@@ -290,8 +328,24 @@ export default {
             },
             //获取本地图片
             fetchImgList() {
-                getImgList().then(response => {
+                return getImgList().then(response => {
                     this.picJson = this.changeToArray(response.data);
+                }).catch(err => {
+                    console.info(err)
+                });
+            },
+            //获取本地图片
+            fetchAudioList() {
+                return getAudioList().then(response => {
+                    this.audioJson = this.changeToArray(response.data);
+                }).catch(err => {
+                    console.info(err)
+                });
+            },
+            //获取本地图片
+            fetchVideoList() {
+                return getVideoList().then(response => {
+                    this.videoJson = this.changeToArray(response.data);
                 }).catch(err => {
                     console.info(err)
                 });
@@ -452,11 +506,7 @@ export default {
 
             addPicElement(url) {
                 this.addElement(2, {content:url});
-                console.info('添加图片',url)
             },
-            // addElementCrop(json) {
-            //     console.info('添加裁切图片',json)
-            // },
             addBg(data) {
                 var json={
                     bgImage:{
@@ -472,7 +522,6 @@ export default {
                 //     bus.$emit('mainShow-update-img');
                 // },200);
                 bus.$emit('change-tab','second');
-                console.info('添加背景',json)
             }
         }
 };

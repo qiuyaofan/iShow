@@ -66,7 +66,6 @@ export default {
         methods: {
             //初始化
             initJson() {
-                //console.info('this.childJson',this.childJson)
                 this.json = JSON.parse(JSON.stringify(this.childJson));
                 this.showId = this.json.id;
                 this.modifyJson();

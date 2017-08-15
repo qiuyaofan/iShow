@@ -68,7 +68,6 @@ export default {
         },
         computed: {
             getBackground() {
-                console.info('getBackground',this.setBgImage())
                 return this.setBgImage();
             }
         },
@@ -76,7 +75,6 @@ export default {
             //拼接背景css
             setBgImage() {
                 var bgImage=this.pageJson[this.page-1].bgImage;
-                console.info('bgImage',this.pageJson,bgImage)
                 if (!bgImage) {
                     return;
                 }
@@ -93,7 +91,6 @@ export default {
                 bus.$emit('set-page', this.page);
             },
             setActive() {
-                console.info('active',this.activePage,this.page)
                 this.isActive = this.activePage === this.page;
             },
             confirmDelete() {

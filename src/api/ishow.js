@@ -8,9 +8,25 @@ import qs from 'qs';
 export function getImgList() {
   return fetchToken({
     url: '/h5editor/getUploadFileList',
-    method: 'get'
+    method: 'post'
   });
 }
+// 获取上传的音频列表
+export function getAudioList() {
+  return fetchToken({
+    url: '/h5editor/getAudioFileList',
+    method: 'post'
+  });
+}
+
+// 获取上传的视频列表
+export function getVideoList() {
+  return fetchToken({
+    url: '/h5editor/getVideoFileList',
+    method: 'post'
+  });
+}
+
 // 删除文件（图片）
 export function deleteImgList(data) {
   data = {

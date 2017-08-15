@@ -6,7 +6,7 @@
         <!-- <pic-layer :pic-json="picJson" ref="picLayer"></pic-layer> -->
         <div v-if="isOpen" style="line-height:1;">
             <el-dialog title="图片素材" v-model="dialogVisible" size="small-1000" :before-close="closePicLayer">
-                <pic-layer :pic-json="picJson" ref="picLayer" :is-bg="isBg"></pic-layer>
+                <pic-layer :pic-json="picJson" ref="picLayer" :is-bg="isBg" :isLoading="isLoading"></pic-layer>
             </el-dialog>
 
             <el-dialog title="预览图片" v-model="dialogVisible2" size="small-700" top="3%">
@@ -68,7 +68,8 @@ export default {
                 //croodUrl2:'',
                 cropType:'',
                 isOpen:false,
-                cropTitle:''
+                cropTitle:'',
+                isLoading:true
             };
         },
         props:{
@@ -108,10 +109,10 @@ export default {
         created() {
             this.cropTitle=this.type==='bg'?'背景裁切':this.type==='picCrop'?'图片裁切':'';
             //预览图片
-            bus.$on('navbar-preview', function(src) {
-                this.dialogVisible2=true;
-                this.previewPicSrc=src;
-            }.bind(this));
+            // bus.$on('navbar-preview', function(src) {
+            //     this.dialogVisible2=true;
+            //     this.previewPicSrc=src;
+            // }.bind(this));
 
             //编辑
             // bus.$on('update-target', function(data,id) {
@@ -120,21 +121,30 @@ export default {
             // }.bind(this));
 
             //图片关闭弹层
-            bus.$on('handle-navbar-layer', function(name,isShow) {
-                this[name]=isShow;
-            }.bind(this));
+            // bus.$on('handle-navbar-layer', function(name,isShow) {
+            //     this[name]=isShow;
+            // }.bind(this));
             
         },
         watch: {},
         methods: {
+            //预览使用图片
+            navbarPreview(src) {
+                this.dialogVisible2=true;
+                this.previewPicSrc=src;
+            },
+            handleLayer(name,isShow) {
+                this[name]=isShow;
+            },
+            setLoading(isLoading) {
+                this.isLoading=isLoading;
+            },
             bgHandle(isShow,url) {
                 this.dialogVisible3=isShow;
-                console.info(url)
                 this.croodUrl=url;
             },
             imgHandle(isShow,url) {
                 this.dialogVisible3=isShow;
-                console.info(url)
                 this.croodUrl=url;
             },
             openTool(url) {
@@ -156,6 +166,7 @@ export default {
                     tag:tag
                 });
                 this.dialogVisible=false;
+                this.dialogVisible2=false;
                 this.dialogVisible3=false;
             },
 

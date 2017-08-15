@@ -1,18 +1,17 @@
 <!-- <meta name="viewport" id="viewport" content="width=320, initial-scale=1.2875, maximum-scale=1.2875, user-scalable=no"> -->
 <template>
     <div>
+        <!-- 导航栏 -->
         <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="renderJson" :page="page"></main-header>
         <div class="main v-global" @click="toggerActive">
-            <div class="left-container mt5">
-                <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules>
-            </div>
-            <div class="center-container">
-                <main-show :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]" :show-id="showId" ref="show"></main-show>
-            </div>
-            <div class="right-container mt5">
-                <main-editor :render-json="renderJson" :show-id="showId" ref="editor" :page-json="pageJson[page-1]"></main-editor>
-            </div>
+            <!-- 模版 -->
+            <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules>
+            <!-- 显示 -->
+            <main-show :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]" :show-id="showId" ref="show"></main-show>
+            <!-- 编辑工具 -->
+            <main-editor :render-json="renderJson" :show-id="showId" ref="editor" :page-json="pageJson[page-1]"></main-editor>
         </div>
+        <!-- 参数设置 -->
         <main-setting ref="setting"></main-setting>
     </div>
 </template>
@@ -66,31 +65,42 @@ export default {
         created() {
             //设置总json
             this.pageJson = this.parseJson(showJsons);
-            //设置showJson
-            this.getPageJson();
-            //设置renderJson
-            this.renderJson = this.converJson(this.showJson);
-            //绑定全局bus事件
-            this.addEvent();
-
-            bus.$emit('add-histroy');
-
             //设置活动id,编辑状态
             const id=this.$route.query.activityId||'';
+            
+            console.info('id',id)
             if(id){
                 this.$store.commit('SET_ACTIVITYID', id);
                 this.fetchPageJson();
+            }else{
+                this.init();
             }
             //this.$store.state.user.activityId=this.$route.query.activityId||'';
         },
 
         methods: {
+            init(json) {
+                console.info('json',json)
+                //设置总json
+                // this.pageJson = this.parseJson(json);
+                //设置showJson
+                this.getPageJson();
+                //设置renderJson
+                this.renderJson = this.converJson(this.showJson);
+                //绑定全局bus事件
+                this.addEvent();
+
+                bus.$emit('add-histroy');
+            },
             //获取h5编辑的json
             fetchPageJson() {
+                let _this=this;
                 let id=this.$route.query.activityId;
-                getPageJson(id).then(response => {
-                    console.info(JSON.parse(response.data))
-                    this.updatePageJson(JSON.parse(response.data));
+                return getPageJson(id).then(response => {
+                    let temp=typeof(response.data)==="object"?response.data:JSON.parse(response.data);
+                    this.pageJson = this.parseJson(temp);
+                    _this.init();
+                    //this.updatePageJson(response.data);
                 }).catch(err => {
                     console.info(err)
                 });
@@ -160,15 +170,6 @@ export default {
                     let page = this.pageJson.length + 1;
                     let temp = this.parseJson(appJson.initPage);
                     temp.page=page;
-                    // {
-                    //     page: page,
-                    //     json: [],
-                    //     bgImage:{
-                    //         backgroundColor:"",
-                    //         coord:"",
-                    //         url:""
-                    //     }
-                    // };
                     this.pageJson.push(temp);
                     this.page = page;
                     bus.$emit('set-page', page);
@@ -253,12 +254,18 @@ export default {
                 }.bind(this));
 
                 //切换显示背景编辑器
-                bus.$on('bg-editor-toggle', function(isActive) {
-                    let json=this.parseJson(this.pageJson[this.page-1].bgImage);
-                    console.info(json)
-                     this.$refs.editor.toggleBgEditor(isActive,json);
-                }.bind(this));
+                // bus.$on('bg-editor-toggle', function(isActive) {
+                //     let json=this.parseJson(this.pageJson[this.page-1].bgImage);
+                //     console.info(json)
+                //     this.$refs.editor.toggleBgEditor(isActive,json);
+                // }.bind(this));
 
+            },
+            //切换显示背景编辑器
+            bgEditorToggle(isActive) {
+                let json=this.parseJson(this.pageJson[this.page-1].bgImage);
+                console.info(json)
+                this.$refs.editor.toggleBgEditor(isActive,json);
             },
             //添加page
             updatePageJson(json,page) {
@@ -292,6 +299,7 @@ export default {
                 for (var i = 0; i < this.pageJson.length; i++) {
                     if (this.pageJson[i].page === this.page) {
                         this.showJson = this.pageJson[i].json;
+                        console.info('this.showJson',this.showJson)
                         return this.pageJson[i].json;
                     }
                 }

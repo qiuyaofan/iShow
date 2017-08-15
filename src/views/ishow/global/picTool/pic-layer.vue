@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="layer-main_box">
-                    <div v-if="json.length>0">
+                    <div v-if="!isLoading">
                         <div v-for="(item,index) in json" class="layer-main_item" :class="{ 'selected': isActive[index]}" :style="{ 'background-image': 'url(' + item + ')' }" :data-url="item"  @mouseover="picHover(index,true)" @mouseout="picHover(index,false)">
                             
                             <div v-show="isHover[index]" class="layer-main_item--pic">
@@ -77,7 +77,7 @@ export default {
             isHover:[]
         };
     },
-    props: ["picJson","isBg"],
+    props: ["picJson","isBg","isLoading"],
 
     created() {
         //获取图片列表
@@ -104,7 +104,8 @@ export default {
         //关闭弹层
         closeLayer() {
             this.isManage===true?this.back():false;
-            bus.$emit('handle-navbar-layer', 'dialogVisible',false);
+            this.$parent.$parent.handleLayer('dialogVisible',false);
+            // bus.$emit('handle-navbar-layer', 'dialogVisible',false);
         },
         fetchDeletePic(data) {
             deleteImgList(data).then(response => {
@@ -154,7 +155,6 @@ export default {
 
         confirmPic(url) {
             let type=this.$parent.$parent.type;
-            console.info('bg',type,url)
             if(type==='bg'){
                 //背景裁切
                 this.$parent.$parent.bgHandle(true,url);
@@ -243,7 +243,8 @@ export default {
         },
         //预览图片
         preview(src,index) {
-            bus.$emit('navbar-preview',src);
+            this.$parent.$parent.navbarPreview(src);
+            //bus.$emit('navbar-preview',src);
         }
     }
 };

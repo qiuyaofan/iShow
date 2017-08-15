@@ -88,6 +88,7 @@ export default {
                 //获取旋转后的值
                 let j=rotateChange(rotateType,i);
                 //获取值movePos.get--旋转后的返回值
+                console.info(j)
                 let posResult=movePos.get[j](_this,json);
                 //console.info('ooo',i,j)
                 //获取参数
@@ -113,7 +114,7 @@ export default {
                     }
                 });
             },
-            setPos() {
+            setPos(event) {
                 let el = this.$el;
                 let screen = document.getElementsByClassName('screen')[0].getBoundingClientRect();
                 //let target = this.$el.querySelector(dragEle[i]);
