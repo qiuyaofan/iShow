@@ -4,18 +4,4 @@ Now, the editor is still missing a lot of ways, the phone side has not finished,
 
 主框架使用了github的开源项目：https://github.com/PanJiaChen/vue-element-admin
 
-##编辑器截图部分截图如下： 
-
-###设置
-
-![编辑器截图][https://note.youdao.com/yws/api/group/7193078/noteresource/350388A0F6F1484EB37C7C759EF5F75D/version/26?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252] 
-
-###选择图片
-
-![编辑器截图][https://note.youdao.com/yws/api/group/7193078/noteresource/56C821E765B444D5B5FB7DCA22251D96/version/27?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252] 
-
-###列表打开页面-编辑
-
-![c编辑器截图][https://note.youdao.com/yws/api/group/7193078/noteresource/E00E381E8D1F4AEDB969339679315E28/version/28?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252]
-
  
