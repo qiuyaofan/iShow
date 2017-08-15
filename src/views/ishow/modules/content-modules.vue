@@ -6,48 +6,6 @@
                 </normalElement>
             </div>
         </div>  
-        <!-- <el-row :gutter="10">
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple">
-                    <img src="~assets/modules.png" alt="modules" class="">
-                </div>
-            </el-col>
-        </el-row> -->
     </div>
 </template>
 <script>
@@ -79,52 +37,32 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
             }).then(() => {
-                console.info(333333)
                 this.chooseModule(json);
-            }).catch(() => {
-                     console.info(33222)
+            }).catch(err => {
+                console.info(err)
             });
         },
         fetchModuleList() {
             getModuleList(this.pageSize,this.pageNum).then(response => {
-                //  response.data=[{
-                //     "moduleId":45,
-                //     "moduleName":"name",
-                //     "moduleLink":3,
-                //     "createTime":"2017-7-15 00:00:00",
-                //     "createUser":3,
-                //     "moduleJson":'[{"page":1,"json":[{"type":2,"content":"http://192.168.1.100:8080/uploadfile/1/3/10/4c85ba80-d8e1-4ace-a0d5-4c145d3861cc_demo1-3.png","position":{"top":46,"left":55},"width":175,"height":226.77902621722845,"text":{"backgroundColor":"rgba(0,0,0,0)","opacity":100,"padding":0,"rotate":0,"borderWidth":0,"borderRadius":0,"borderStyle":"solid","shadowColor":"rgba(204, 204, 204,1)","shadowWidth":0,"shadowRadius":10,"shadowDire":0,"borderColor":"rgba(204, 204, 204,1)"},"animate":[],"id":1500954821593,"zIndex":1},{"type":1,"content":"你要编辑的文字","position":{"top":309,"left":10},"width":300,"height":38,"text":{"backgroundColor":"rgba(0,0,0,0)","color":"rgba(51, 51, 51,1)","opacity":100,"padding":0,"lineHeight":1,"fontFamily":"","fontSize":24,"writingMode":"horizontal-tb","textAlign":"left","fontWeight":"normal","fontStyle":"normal","textDecoration":"none","borderWidth":0,"borderRadius":0,"borderColor":"rgba(204, 204, 204,1)","borderStyle":"solid","shadowColor":"rgba(204, 204, 204,1)","shadowWidth":0,"shadowRadius":10,"shadowDire":0,"rotate":0},"animate":[],"id":1500954823321,"zIndex":2}],"bgImage":{}}]'
-                // }];
                 let data=response.data;
-               
+                console.info('getModuleList',data)
                 if(data&&data.length){
                     console.info(data)
                     for (let i = 0; i < data.length; i++) {
-                        let temp = JSON.parse(data[i].moduleJson);
+                        let temp = typeof(data[i].moduleJson)==="object"?data[i].moduleJson:JSON.parse(data[i].moduleJson);
                         data[i].json=temp[0].json;
                         data[i].moduleJson=temp;
-                        // let tempJson={
-                        //     moduleId:data[i].moduleId,
-                        //     moduleName:data[i].moduleName,
-                        //     moduleLink:data[i].moduleLink,
-                        //     moduleJson:data[i].moduleJson,
-                        //     json:temp[0].json
-                        // };
-                        
-                        //this.moduleJson.push(tempJson);
                     }
                     this.moduleJson=Object.assign([],data);
                 }
-                console.info(this.moduleJson)
-            });
+            }).catch(err => {
+                console.info(err)
+            });;
         },
         chooseModule(json) {
             json=json.moduleJson[0];
             json.page=this.page;
-            console.info('json',json)
             bus.$emit('update-pageJson', json);
-            //this.$parent.$parent.updatePageJson(json.moduleJson);
-            
         }
     }
 };

@@ -5,7 +5,9 @@ import loginAPI from './login';
 const mock = new MockAdapter(axios);
 
 // 编辑器相关
-mock.onGet('/h5editor/getUploadFileList').reply(ishowAPI.getImgList);
+mock.onPost('/h5editor/getAudioFileList').reply(ishowAPI.getAudioList);
+mock.onPost('/h5editor/getVideoFileList').reply(ishowAPI.getVideoList);
+mock.onPost('/h5editor/getUploadFileList').reply(ishowAPI.getImgList);
 mock.onPost('/h5editor/deleteFile').reply(ishowAPI.deleteImgList);
 mock.onPost('/h5editor/wipeData').reply(ishowAPI.clearImgList);
 mock.onGet('/h5editor/getDefaultField').reply(ishowAPI.getValidateList);

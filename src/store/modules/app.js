@@ -7,7 +7,9 @@ const app = {
     },
     theme: 'default',
     livenewsChannels: Cookies.get('livenewsChannels') || '[]',
-    uploadUrl:process.env.BASE_API+'/h5editor/uploadFile'
+    uploadUrl: process.env.BASE_API + '/h5editor/uploadFile',
+    audioUploadUrl: process.env.BASE_API + '/h5editor/uploadAudio',
+    videoUploadUrl: process.env.BASE_API + '/h5editor/uploadVideo'
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {

@@ -146,7 +146,8 @@ export default {
                 result.push(temp);
             }
             json.validate = result;
-            bus.$emit('update-radio-layer',json,type);
+            this.$parent.$parent.confirmForm(json,type);
+           // bus.$emit('update-radio-layer',json,type);
         }
 
     }

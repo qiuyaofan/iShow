@@ -79,7 +79,9 @@ export default {
         };
     },
     created() {
-        this.fetchImgList();
+        this.fetchImgList().then(function(data){
+            this.$refs.picTool.setLoading(false);
+        }.bind(this));
     },
     components: {
         picTool
@@ -117,7 +119,7 @@ export default {
         },
         //获取本地图片
         fetchImgList() {
-            getImgList().then(response => {
+            return getImgList().then(response => {
                 this.picJson = this.changeToArray(response.data);
             }).catch(err => {
                 console.info(err)

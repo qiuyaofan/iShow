@@ -12,11 +12,11 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'normalize.css/normalize.css';
 import 'styles/index.scss';
-import 'components/Icon-svg/index';
+// import 'components/Icon-svg/index';
 import 'assets/iconfont/iconfont';
 import * as filters from './filters';
 import Multiselect from 'vue-multiselect';
-import Sticky from 'components/Sticky';
+// import Sticky from 'components/Sticky';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import vueWaves from './directive/waves';
 import vueSticky from './directive/sticky';
@@ -27,7 +27,7 @@ import 'assets/sass/style.scss';
 
 // register globally
 Vue.component('multiselect', Multiselect);
-Vue.component('Sticky', Sticky);
+// Vue.component('Sticky', Sticky);
 Vue.use(ElementUI);
 Vue.use(vueWaves);
 Vue.use(vueSticky);

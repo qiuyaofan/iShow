@@ -1,14 +1,16 @@
 <template>
-    <div class="modules-wrapper">
-        <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="模版管理" name="first">
-                <el-input placeholder="请输入内容齐全" icon="search" v-model="input2" :on-icon-click="handleIconClick"></el-input>
-                <content-modules :page="page"></content-modules>
-            </el-tab-pane>
-            <el-tab-pane label="编辑状态" name="second">
-                <view-page :page-json="pageJson" :page="page"></view-page>
-            </el-tab-pane>
-        </el-tabs>
+    <div class="left-container mt5">
+        <div class="modules-wrapper">
+            <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="模版管理" name="first">
+                    <el-input placeholder="请输入内容齐全" icon="search" v-model="input2" :on-icon-click="handleIconClick"></el-input>
+                    <content-modules :page="page"></content-modules>
+                </el-tab-pane>
+                <el-tab-pane label="编辑状态" name="second">
+                    <view-page :page-json="pageJson" :page="page"></view-page>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
     </div>
 </template>
 <script>

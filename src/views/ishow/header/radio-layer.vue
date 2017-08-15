@@ -150,7 +150,8 @@ export default {
             },
             //同步父元素
             triggerApp(type) {
-                bus.$emit('update-radio-layer',this.json,type);
+                this.$parent.$parent.confirmForm(this.json,type);
+               // bus.$emit('update-radio-layer',this.json,type);
             }
 
         }

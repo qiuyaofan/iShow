@@ -17,8 +17,8 @@ let width, height, left, top;
 function e(_this, json) {
   _this.width = range(json.x - json.l);
   if (_this.cropJson.r) {
-      _this.height = _this.width / _this.cropJson.r;
-    }
+    _this.height = _this.width / _this.cropJson.r;
+  }
   return _this;
 }
 
@@ -26,8 +26,8 @@ function s(_this, json) {
   height = json.y - json.t;
   _this.height = range(height);
   if (_this.cropJson.r) {
-      _this.width = _this.height * _this.cropJson.r;
-    }
+    _this.width = _this.height * _this.cropJson.r;
+  }
   return _this;
 }
 function w(_this, json) {
@@ -36,8 +36,8 @@ function w(_this, json) {
   _this.left = rangeMax(left, json.r);
   _this.width = range(width);
   if (_this.cropJson.r) {
-      _this.height = _this.width / _this.cropJson.r;
-    }
+    _this.height = _this.width / _this.cropJson.r;
+  }
   return _this;
 }
 function n(_this, json) {
@@ -46,8 +46,8 @@ function n(_this, json) {
   _this.top = rangeMax(top, json.b);
   _this.height = range(height);
   if (_this.cropJson.r) {
-      _this.width = _this.height * _this.cropJson.r;
-    }
+    _this.width = _this.height * _this.cropJson.r;
+  }
   return _this;
 }
 
@@ -77,20 +77,20 @@ function nw(_this, json) {
   height = json.b - json.y;
   width = json.r - json.x;
   if (height - json.h > width - json.w) {
-      top = json.y - json.screen.top;
-      const changeTop = top - _this.top;
-      _this.top = rangeMax(top, json.b);
-      _this.height = range(height);
-      _this.width = json.ratio * _this.height;
-      _this.left = changeTop * json.ratio + _this.left;
-    } else {
-      left = json.x - json.screen.left;
-      const changeLeft = left - _this.left;
-      _this.left = rangeMax(left, json.r);
-      _this.width = range(width);
-      _this.height = _this.width / json.ratio;
-      _this.top = changeLeft * json.ratio + _this.top;
-    }
+    top = json.y - json.screen.top;
+    const changeTop = top - _this.top;
+    _this.top = rangeMax(top, json.b);
+    _this.height = range(height);
+    _this.width = json.ratio * _this.height;
+    _this.left = changeTop * json.ratio + _this.left;
+  } else {
+    left = json.x - json.screen.left;
+    const changeLeft = left - _this.left;
+    _this.left = rangeMax(left, json.r);
+    _this.width = range(width);
+    _this.height = _this.width / json.ratio;
+    _this.top = changeLeft * json.ratio + _this.top;
+  }
   return _this;
 }
 

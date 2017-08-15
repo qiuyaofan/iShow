@@ -1,5 +1,6 @@
 <template>
     <div class="main-setting">
+        <!-- picTool使用例子 -->
         <picTool :type="'pic'" :picJson="picJson" ref="picTool" :addElement="addElement">
             <el-button @click="showTool('picTool')">图片选择</el-button>
         </picTool>

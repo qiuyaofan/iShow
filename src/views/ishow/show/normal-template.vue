@@ -185,7 +185,6 @@ export default {
                 }
 
             }.bind(this));
-            // console.info(this.childJson)
             //首次加载播放全部动画
             this.playAnimate(false);
             //新建选择元素，兼容还没生成元素的时间差
@@ -194,8 +193,6 @@ export default {
             }.bind(this),0);
             
             this.getImgSize(this.json.content);
-
-            console.info('childJson',this.childJson, this.showJson)
         },
         watch: {
             childJson: {
@@ -308,7 +305,6 @@ export default {
                     result['animationDuration'] = duration.join(',');
                     result['animationFillMode'] = mode.join(',');
                     result['animationDelay'] = delay.join(',');
-                    // console.info('result',result)
                     return result;
                 }
                 return '';
@@ -548,7 +544,6 @@ export default {
                     if (animate && len) {
                         if ((this.animateAll === true && e.animationName === animate[len - 1].animationName) || this.animateAll === false) {
                             this.animateJson = {};
-                            // console.info('11',e)
                         }
                     }
 

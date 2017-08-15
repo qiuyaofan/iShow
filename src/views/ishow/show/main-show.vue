@@ -1,21 +1,23 @@
 <template>
-    <div class="show-wrapper">
-        <div class="phone-main tc">
-            <div class="screen mt60">
-                <div class="tool-bar">
-                    <el-tooltip class="item" effect="dark" content="背景" placement="right">
-                        <a href="javascript:;" @click="toggleBgEditor">
-                            <i aria-hidden="true" class="fa fa-file-image-o"></i>
-                        </a>
-                    </el-tooltip>
-                </div>
-                <div class="v-show show-screen" :style="getBackground">
-                    <normalElement v-for="item in showJson" :key="item.id" :child-json="item" :show-json="showJson" :show-id="showId" :type="item.type" ref="template">
-                    </normalElement>
+    <div class="center-container">
+        <div class="show-wrapper">
+            <div class="phone-main tc">
+                <div class="screen mt60">
+                    <div class="tool-bar">
+                        <el-tooltip class="item" effect="dark" content="背景" placement="right">
+                            <a href="javascript:;" @click="toggleBgEditor">
+                                <i aria-hidden="true" class="fa fa-file-image-o"></i>
+                            </a>
+                        </el-tooltip>
+                    </div>
+                    <div class="v-show show-screen" :style="getBackground">
+                        <normalElement v-for="item in showJson" :key="item.id" :child-json="item" :show-json="showJson" :show-id="showId" :type="item.type" ref="template">
+                        </normalElement>
+                    </div>
                 </div>
             </div>
+            <button2Editor :render-json="renderJson" :show-id="showId" :show-json="showJson"></button2Editor>
         </div>
-        <button2Editor :render-json="renderJson" :show-id="showId" :show-json="showJson"></button2Editor>
     </div>
 </template>
 <script>
@@ -79,7 +81,8 @@ export default {
             
         },
         toggleBgEditor() {
-            bus.$emit('bg-editor-toggle',true);
+            this.$parent.bgEditorToggle(true);
+            // bus.$emit('bg-editor-toggle',true);
         }
     },
     computed: {

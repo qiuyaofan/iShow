@@ -96,7 +96,6 @@ export default {
         watch: {
             showId() {
                 this.id = this.showId;
-                console.info('showId',this.renderJson)
                 this.setInput();
             },
             renderJson() {
@@ -134,7 +133,6 @@ export default {
             },
             setInput() {
                 let json=this.renderJson[this.showId];
-                console.info('borderColor',json.text.borderColor)
                 this.ctype = json.type;
                 this.borderWidth = json.text.borderWidth;
                 this.borderRadius = json.text.borderRadius;

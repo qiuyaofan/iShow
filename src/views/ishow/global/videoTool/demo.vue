@@ -1,5 +1,6 @@
 <template>
     <div class="main-setting">
+        <!-- picTool使用例子 -->
         <picTool :type="'pic'" :picJson="picJson" ref="picTool" :addElement="addElement">
             <el-button @click="showTool('picTool')">图片选择</el-button>
         </picTool>
@@ -17,7 +18,8 @@
 <script>
 import picTool from 'views/ishow/global/picTool/index.vue';
 import {
-    getImgList
+    getImgList,
+    getActivityList
 } from 'api/ishow';
 export default {
     data() {
@@ -29,21 +31,22 @@ export default {
     created() {
         //获取图片列表
          this.fetchImgList();
+         this.fetchActivityList();
     },
     components: {
         picTool
     },
     methods:{
         //获取列表
-        // fetchActivityList() {
-        //     getActivityList(30,1).then(response => {
-        //         if(response.data&&response.data.length){
-        //             console.info(response.data)
-        //         }
-        //         //console.info(response)
-        //         //console.info(JSON.parse(response.data))
-        //     });
-        // },
+        fetchActivityList() {
+            getActivityList(30,1).then(response => {
+                if(response.data&&response.data.length){
+                    console.info(response.data)
+                }
+                //console.info(response)
+                //console.info(JSON.parse(response.data))
+            });
+        },
         showTool(name,cropUrl) {
             this.$refs[name].openTool(cropUrl);
         },

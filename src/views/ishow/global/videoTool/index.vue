@@ -3,37 +3,19 @@
     <div class="picTool-main">
          <slot></slot> 
         <!-- 图片素材 -->
-        <!-- <pic-layer :pic-json="picJson" ref="picLayer"></pic-layer> -->
+        <!-- <pic-layer :pic-json="jsonData" ref="picLayer"></pic-layer> -->
         <div v-if="isOpen" style="line-height:1;">
-            <el-dialog title="图片素材" v-model="dialogVisible" size="small-1000" :before-close="closePicLayer">
-                <pic-layer :pic-json="picJson" ref="picLayer" :is-bg="isBg" :isLoading="isLoading"></pic-layer>
+            <el-dialog :title="title+'素材'" v-model="dialogVisible" size="small-1000" :before-close="closePicLayer">
+                <list-layer :json-data="jsonData" ref="picLayer" :is-bg="isBg" :type="type" :isLoading="isLoading"></list-layer>
             </el-dialog>
 
-            <el-dialog title="预览图片" v-model="dialogVisible2" size="small-700" top="3%">
+            <el-dialog :title="'预览'+title" v-model="dialogVisible2" size="small-700" top="3%">
                 <div class="layer-content clearfix">
                     <img :src="previewPicSrc" alt="" width="100%">
                 </div>
                 <div class="layer-main_footer">
                     <el-button @click="dialogVisible2=false">关闭</el-button>
                     <el-button type="primary" @click="addPic(previewPicSrc)">使用图片</el-button>
-                </div>
-            </el-dialog>
-
-            <!-- 裁切弹层 -->
-            <el-dialog :title="cropTitle" v-model="dialogVisible3" top="3%" v-if="type!=='pic'">
-                <div class="layer-content clearfix">
-                    <div class="layer-main_normal">
-                        <crop :afterCrop="afterCrop" :crood-url="croodUrl" :ratio="ratio" :height="460" :width="920"></crop>
-                    </div>
-                </div>
-                <div class="layer-main_footer" v-if="type==='picCrop'">
-                    <el-button @click="dialogVisible3=false">取消</el-button>
-                    <el-button type="primary" @click="setPicCorp">确定</el-button>
-                </div>
-                <div class="layer-main_footer" v-if="type==='bg'">
-                    <el-button @click="dialogVisible3=false">关闭</el-button>
-                    <el-button type="primary" @click="setBgImageAll">应用所有</el-button>
-                    <el-button type="primary" @click="setBgImage">应用当前页</el-button>
                 </div>
             </el-dialog>
         </div>
@@ -44,7 +26,7 @@
 //     getImgList
 // } from 'api/ishow';
 import bus from 'views/ishow/js/bus';
-import picLayer from './pic-layer.vue';
+import listLayer from './list-layer.vue';
 import crop from 'views/ishow/global/crop/crop.vue';
 const loadingUrl = "static/loading.gif";
 export default {
@@ -52,11 +34,10 @@ export default {
             return {
                 activeIndex: '',
                 dialogVisible: false,
-                dialogVisible3:false,
                 dialogVisible2:false,
                 previewPicSrc:'',
                 // currentPage: 4,
-                // picJson: [],
+                // jsonData: [],
                 isBg:false,
                 // uploadUrl: this.$store.state.app.uploadUrl,
 
@@ -68,7 +49,7 @@ export default {
                 //croodUrl2:'',
                 cropType:'',
                 isOpen:false,
-                cropTitle:'',
+                title:'',
                 isLoading:true
             };
         },
@@ -76,38 +57,24 @@ export default {
             'type':{
                 type: String,
             },
-            'picJson':{
+            'jsonData':{
                 type: Array,
-            },
-            //选择背景图回调
-            'addBg':{
-                type: Function,
-                default: function(){}
             },
             //选择图片回调
             'addElement': {
                 type: Function,
                 default: function(){}
             },
-            //裁切完图片选择回调
-            'addElementCrop': {
-                type: Function,
-                default: function(){}
-            },
             'initUrl': {
                 type: String
-            },
-            'ratio': {
-                type: Number,
-                default: 1
             }
         },
         components: {
-            picLayer,
+            listLayer,
             crop
         },
         created() {
-            this.cropTitle=this.type==='bg'?'背景裁切':this.type==='picCrop'?'图片裁切':'';
+            this.title=this.type==='audio'?'音频':'视频';
             //预览图片
             // bus.$on('navbar-preview', function(src) {
             //     this.dialogVisible2=true;
@@ -128,11 +95,6 @@ export default {
         },
         watch: {},
         methods: {
-            //预览使用图片
-            navbarPreview(src) {
-                this.dialogVisible2=true;
-                this.previewPicSrc=src;
-            },
             handleLayer(name,isShow) {
                 this[name]=isShow;
             },
@@ -157,40 +119,7 @@ export default {
                 // }
                 this.dialogVisible=true;
               
-            },
-            //使用背景图片
-            bgImage(tag) {
-                this.addBg({
-                    crood:this.parseJson(this.crood),
-                    url:this.croodUrl,
-                    tag:tag
-                });
-                this.dialogVisible=false;
-                this.dialogVisible2=false;
-                this.dialogVisible3=false;
-            },
-
-            setBgImage() {
-                this.bgImage();
-            },
-            setBgImageAll() {
-                this.bgImage('-all');
-            },
-            //确定裁切图片
-            setPicCorp() {
-                this.dialogVisible=false;
-                this.dialogVisible3=false;
-                this.addElementCrop({
-                    crood:this.parseJson(this.crood),
-                    url:this.croodUrl
-                });
-            },
-            //获取裁切数据
-            afterCrop(json,url) {
-                this.crood=json;
-                this.croodUrl=url;
-                console.info('afterCrop',json,url)
-            },
+            }, 
             //预览使用图片
             addPic() {
                 this.$refs.picLayer.confirmPic(this.previewPicSrc);

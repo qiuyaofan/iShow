@@ -16,7 +16,7 @@
             <div class="layer-main_content">
                 <div class="layer-main-header mb10">
                     <div class="fr" v-if="!isManage">
-                        <el-button type="primary" size="small" @click="isManage=true">图片管理</el-button>
+                        <el-button type="primary" size="small" @click="isManage=true">{{title}}管理</el-button>
                     </div>
                     <div class="fr" v-else>
                         <el-button type="warning" size="small" @click="deleteFn"><i class="el-icon-delete2"></i> 删除</el-button>
@@ -36,12 +36,12 @@
                                     </el-button>
                                 </div>
                                 <div class="tc">
-                                    <el-button @click="preview(item,index)" class="mt5" size="small"><i class="fa fa-eye" aria-hidden="true"></i> 预览</el-button>
+                                    <el-button @click="preview(item,index)" class="mt5" size="small"><i class="fa fa-eye" aria-hidden="true"></i>播放</el-button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div v-else class="tc"><i class="el-icon-loading"></i> 正在加载图片，请稍后...</div>
+                    <div v-else class="tc"><i class="el-icon-loading"></i> 正在加载{{title}}，请稍后...</div>
                 </div>
                 
             </div>
@@ -64,6 +64,7 @@ const loadingUrl = "static/loading.gif";
 import {
     deleteImgList
 } from 'api/ishow';
+
 export default {
     data() {
         return {
@@ -71,21 +72,23 @@ export default {
             navbarJson: navarJson["navbarJsons"],
             json: [],
             currentPage: 4,
-            uploadUrl: this.$store.state.app.uploadUrl,
+            uploadUrl: "",
             isManage:false,
             isActive:[],
             isHover:[]
         };
     },
-    props: ["picJson","isBg","isLoading"],
+    props: ["jsonData","isBg","type","isLoading"],
 
     created() {
         //获取图片列表
-        //this.fetchImgList();
+        //this.fetchImgList();const uploadUrl=this.$store.state.app;
+        this.uploadUrl=this.$store.state.app[this.type+'UploadUrl'];
+        this.title=this.type==='audio'?'音频':'视频';
         this.setInput();
     },
     watch: {
-        picJson: {
+        jsonData: {
             handler(val, oldVal) {
                 this.setInput();
             },
@@ -93,10 +96,14 @@ export default {
         },
     },
     methods: {
+        //设置loading
+        // isLoading(isLoading) {
+        //     this.loading=isLoading;
+        // },
         setInput() {
-            this.json=this.parseJson(this.picJson);
-            this.isActive.length=this.picJson.length;
-            this.isHover.length=this.picJson.length;
+            this.json=this.parseJson(this.jsonData);
+            this.isActive.length=this.jsonData.length;
+            this.isHover.length=this.jsonData.length;
         },
         picHover(index,status) {
             this.isHover.splice(index,1,status);
@@ -105,7 +112,6 @@ export default {
         closeLayer() {
             this.isManage===true?this.back():false;
             this.$parent.$parent.handleLayer('dialogVisible',false);
-            // bus.$emit('handle-navbar-layer', 'dialogVisible',false);
         },
         fetchDeletePic(data) {
             deleteImgList(data).then(response => {
@@ -242,10 +248,9 @@ export default {
             return result;
         },
         //预览图片
-        preview(src,index) {
-            this.$parent.$parent.navbarPreview(src);
-            //bus.$emit('navbar-preview',src);
-        }
+        // preview(src,index) {
+        //     bus.$emit('navbar-preview',src);
+        // }
     }
 };
 </script>
