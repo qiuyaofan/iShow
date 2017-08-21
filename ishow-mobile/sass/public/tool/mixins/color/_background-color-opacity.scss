@@ -1,0 +1,9 @@
+@mixin bgc-opacity($bgColor, $bgOpacity, $supportIE:true) {
+    background-color: rgba($bgColor, $bgOpacity);
+    @if $supportIE {
+    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str(rgba($bgColor,$bgOpacity))}, endColorstr=#{ie-hex-str(rgba($bgColor,$bgOpacity))});
+        :root & {
+            filter: none;
+        }
+    }
+}

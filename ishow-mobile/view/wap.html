@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    *developer*
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+    <title>h5页面</title>
+    <meta name="keywords" content="快信h5编辑器">
+    <meta name="description" content="快信h5编辑器">
+    <!-- build:css -->
+    <meta name="token" content="E54081267638C0534D694B06E91E6C1B">
+    <meta name="activityId" content="263">
+    <meta name="basepath" content="http://192.168.1.100:8080/smvc/">
+    <link rel="stylesheet" href="../js/plugin/swiper-3.1.7/css/swiper.min.css">
+    <link rel="stylesheet" href="../css/wap.css">
+    <!-- endbuild -->
+    <meta name="drawId" content="2">
+    <link type="image/x-icon" rel="shortcut icon" href="../images/favicon.ico">
+    <!-- @insert:css-vendor -->
+    <script type="text/javascript">
+        var H5PageJson="";
+    </script>
+</head>
+
+<body>
+
+    <div id="global-tip"></div>
+    <!-- end .loading-container -->
+    <div id="J-main" class="main pr">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+
+            </div>
+        </div>                                    
+        <!-- <div id="wrapper">
+            3534546456
+        </div> -->
+    </div>
+    <script type="text/html" id="tpl-1">
+        {{each page value i}}
+        <div class="swiper-slide">
+            <div class="page J-page">
+                <div class="page-content">
+                    {{each value.list item j}}
+                        <div style="{{item.style}}" id="{{item.id}}" class="page-item">
+                        {{if item.type===1}}
+                        <div class="item-text">{{@item.content}}</div>
+                        {{else if item.type===2}}
+                            <img src="{{item.content}}" alt="" width="100%" height="100%">
+                        {{else if item.type===3}}
+                            <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
+                        {{else if item.type===4}}
+                            <div class="item-box">
+                                <div class="item-box_title" style="background-color:{{item.theme}};">
+                                    {{item.form.cname}}
+                                </div>
+                                {{if item.form.dire==='v'}}
+                                <div class="item-box_radio vertical">
+                                {{else}}
+                                <div class="item-box_radio">
+                                {{/if}}
+                                    {{each item.form.options option k}}
+                                    <label>
+                                        <input type="radio" name="">{{option}}
+                                    </label>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        {{else if item.type===5}}
+                            <div class="item-box">
+                                <div class="item-box_title" style="background-color:{{item.theme}};">
+                                    {{item.form.cname}}
+                                </div>
+                                {{if item.form.dire==='v'}}
+                                <div class="item-box_checkbox vertical">
+                                {{else}}
+                                <div class="item-box_checkbox">
+                                {{/if}}
+                                    {{each item.form.options option k}}
+                                    <label>
+                                        <input type="checkbox" name="">{{option}}
+                                    </label>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        {{else if item.type===6}}
+                            <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
+                        {{else if item.type===7}}
+                            <a href="" class="item-button" style="line-height: {{item.json.height | px}}; color: {{item.json.text.color}};">提交</a>
+                        {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <!-- <script type="text/html" id="tpl-2">
+        {{each page value i}}
+        <div class="page page-{{2+i}}">
+            <div class="music"></div>
+            <div class="q-box">
+                <div class="bg-fff q-main" data-question="{{i}}">
+                    <div class="pt30 tc">
+                        <img src="../images/main.png" alt="" width="251" class="title-img">
+                    </div>
+                    <div class="pt30 q-content">
+                        <input type="hidden" name="{{value.id}}" class="J-value">
+                        <div class="q-title">{{value.title}}</div>
+                        {{each value.options value2 optionId}}
+                        <div class="q-item" data-id="{{optionId}}" data-titleId="{{value.id}}">
+                            {{value2}}
+                        </div>
+                        {{/each}}
+                        <div class="tc">
+                            {{if i>=list.length-1}}
+                            <a href="javascript:;" class="btn-1 t1 mt30 J-finish" data-page="{{i+1}}">提交答案</a> {{else}}
+                            <a href="javascript:;" class="btn-1 t1 mt30 J-next" data-page="{{i+1}}">下一题</a> {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script> -->
+    <!-- build:js -->
+    <script src="../js/plugin/jquery-2.1.0.min.js"></script>
+    <script src="../js/plugin/iui.js"></script>
+    <script src="../js/plugin/template.js"></script>
+    <script src="../js/plugin/swiper-3.1.7/js/swiper.min.js"></script>
+    <script src="../js/json.js"></script>
+    <script src="../js/wap.js"></script>
+    <!-- endbuild -->
+    <!-- @insert:js-vendor -->
+</body>
+
+</html>

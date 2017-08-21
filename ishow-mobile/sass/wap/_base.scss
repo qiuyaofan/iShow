@@ -1,0 +1,42 @@
+//layout size
+%w100{
+    width:100%;
+}
+%h100{
+    height:100%;
+}
+
+//position
+%pr{
+    position:relative;
+}
+%pa{
+    position:absolute;
+}
+
+//display
+%dis-inbk{
+    display: inline-block;
+}
+
+//font align
+%tc{
+    text-align: center;
+}
+
+//font size
+%f24{
+    font-size:24px;
+}
+%f18{
+    font-size:18px;
+}
+%f16{
+    font-size:16px;
+}
+%f14{
+    font-size:14px;
+}
+%f12{
+    font-size:12px;
+}

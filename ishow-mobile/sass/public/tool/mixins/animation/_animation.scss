@@ -1,0 +1,44 @@
+
+@mixin animation-properties($name: animation-duration,$value:1s) {
+  @include prefixer($name, $value);
+}
+
+@mixin animation($name: name) {
+  @include prefixer(animation, $name);
+}
+
+@mixin animation-name($name: name) {
+  @include prefixer(animation-name, $name);
+}
+
+@mixin animation-duration($time: 1s) {
+  @include prefixer(animation-delay, $time);
+}
+
+@mixin animation-delay($time: 1s) {
+  @include prefixer(animation-delay, $time);
+}
+
+
+@mixin animation-timing-function($type: linear) {
+  @include prefixer(animation-timing-function, $type);
+}
+
+
+@mixin animation-direction($dire: alternate) {
+  @include prefixer(animation-direction, $dire);
+}
+
+@mixin animation-play-state($state: paused) {
+  @include prefixer(animation-play-state, $state);
+}
+
+
+@mixin animation-fill-mode($type: forwards) {
+  @include prefixer(animation-fill-mode, $type);
+}
+
+@mixin animation-iteration-count($count: 1) {
+  @include prefixer(animation-iteration-count, $count);
+}
+

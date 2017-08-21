@@ -1,0 +1,37 @@
+// .one {
+//     @include keyframes(fadeInRight) {
+//         from {
+//             border-radius: 30px;
+//         }
+//         to {
+//             border-radius: 0px
+//         }
+//     }
+// }
+@mixin keyframes($animationName, $prefixes:$prefix-global-setting) {
+    @each $prefix in $prefixes {
+        @if $prefix==webkit {
+            @-webkit-keyframes #{$animationName} {
+                @content;
+            }
+        }
+        @else if $prefix==moz {
+            @-moz-keyframes #{$animationName} {
+                @content;
+            }
+        }
+        @else if $prefix==ms {
+            @-ms-keyframes #{$animationName} {
+                @content;
+            }
+        }
+        @else if $prefix==o {
+            @-o-keyframes #{$animationName} {
+                @content;
+            }
+        }
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
