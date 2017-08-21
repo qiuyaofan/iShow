@@ -1,0 +1,57 @@
+/// @example scss - Usage
+///   @include padding-init(50,5,true false false false);
+///
+/// @example css - CSS Output
+/// .pl5 {
+///   padding-top: "5px"; }
+/// .pl10 {
+///   padding-top: "10px"; }
+/// .pl15 {
+///   padding-top: "15px"; }
+/// .pl20 {
+///   padding-top: "20px"; }
+/// .pl25 {
+///   padding-top: "25px"; }
+/// .pl30 {
+///   padding-top: "30px"; }
+/// .pl35 {
+///   padding-top: "35px"; }
+/// .pl40 {
+///   padding-top: "40px"; }
+/// .pl45 {
+///   padding-top: "45px"; }
+/// .pl50 {
+// 	  padding-top: "50px"; }
+///
+/// @require {function} contains-falsy
+///
+/// @return {List}
+
+@mixin padding-init($max:30,$interval:5,$direction: true true true){
+	@for $i from $interval through $max {
+		@if $i % $interval == 0{
+			@if(nth($direction,1)){
+				.pt#{$i} {
+					padding-top: $i+'px';
+				}
+			}
+			@if(nth($direction,2)){
+				.pr#{$i} {
+					padding-right: $i+'px';
+				}
+			}
+			@if(nth($direction,3)){
+				.pb#{$i} {
+					padding-right: $i+'px';
+				}
+			}
+			@if(nth($direction,4)){
+				.pl#{$i} {
+					padding-left: $i+'px';
+				}
+			}
+
+		}
+	}
+}
+

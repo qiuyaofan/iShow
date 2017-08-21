@@ -1,0 +1,234 @@
+@import 'public/wap-style';
+@import 'wap/loading';
+@import 'wap/base';
+@import 'wap/form';
+@import 'wap/animate';
+@import 'wap/slippage';
+$w-index:10;
+.v-hide {
+    visibility: hidden;
+}
+*,:after,:before {
+    box-sizing: border-box
+}
+html,
+body,
+.main,
+.swiper-wrapper {
+    @extend %w100;
+    @extend %h100;
+    overflow: hidden;
+}
+// .slippage-item > *{
+//     overflow: initial;
+// }
+// .page {
+//     @extend %w100;
+//     @extend %h100;
+// }
+
+.page{
+    @extend %w100;
+    // height:100%;
+    background: #fff;
+    @at-root{
+        .page-content{
+            // height: 100%;
+            position: relative;
+        }
+        .page-item{
+            overflow: hidden;
+        }
+        .item-text {
+            padding: .3em 0;
+            min-height: 38px;
+            text-rendering: optimizeLegibility;
+        }
+        
+        .item-button {
+            outline: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            background: transparent;
+            @extend %w100;
+            @extend %h100;
+            border: none;
+            @extend %tc;
+            @extend %dis-inbk;
+        }
+        .item-textarea {
+            @extend %w100;
+            @extend %h100;
+            resize: none;
+            border: none;
+            padding: 8px;
+        }
+    }
+}
+
+/**
+ * mixins - 单选复选公共样式样式
+ */
+
+%custom-radio-checkbox {
+    padding: 4px;
+    label {
+        @extend %dis-inbk;
+        max-width: 100%;
+        min-height: 20px;
+        margin-right: 8px;
+        margin-bottom: 0;
+        font-weight: normal;
+        white-space: nowrap;
+        cursor: pointer;
+        padding: 4px;
+        @extend %f14;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+        -webkit-appearance: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #c4c4c4;
+        margin-top: 1px;
+        width: 18px;
+        color: transparent;
+        background: transparent;
+        @extend %pr;
+        vertical-align: -3px;
+        @-moz-document url-prefix() {
+            margin-top: 4px;
+        }
+        &:focus {
+            outline: none;
+        }
+        &:disabled:before {
+            color: #ccc;
+            content: '\f147';
+        }
+        &:before {
+            content: "";
+            @extend %dis-inbk;
+            border: 1px solid #bfcbd9;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            box-sizing: border-box;
+            background: #fff;
+            -webkit-transition: border-color .25s cubic-bezier(.71, -.46, .29, 1.46), background-color .25s cubic-bezier(.71, -.46, .29, 1.46);
+            transition: border-color .25s cubic-bezier(.71, -.46, .29, 1.46), background-color .25s cubic-bezier(.71, -.46, .29, 1.46);
+        }
+    }
+    //打勾，未选中时
+    input[type="checkbox"]:after {
+        box-sizing: content-box;
+        content: "";
+        border: 2px solid #fff;
+        border-left: 0;
+        border-top: 0;
+        height: 8px;
+        left: 5px;
+        position: absolute;
+        top: 1px;
+        transform: rotate(45deg) scaleY(0);
+        width: 4px;
+        transition: transform .15s cubic-bezier(.71, -.46, .88, .6) .05s;
+        transform-origin: center;
+    }
+    //选中
+    input[type="checkbox"]:checked {
+        &:before {
+            background: #08a1ef;
+        }
+        &:after {
+            transform: rotate(45deg) scaleY(1);
+        }
+    }
+    input[type="radio"] {
+        &:before {
+            border-radius: 50%;
+        }
+    }
+    input[type="radio"]:checked,
+    input[type="checkbox"]:checked {
+        color: #bfcbd9;
+        &:before {
+            content: "";
+            @extend %dis-inbk;
+        }
+    }
+    input[type="radio"]:checked {
+        &:before {
+            border-color: #20a0ff;
+            border-width: 4px;
+        }
+    }
+    &.vertical {
+        label {
+            display: block;
+        }
+    }
+}
+
+.item-box {
+    @at-root {
+        .item-box_title {
+            min-height: 36px;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            height: auto;
+        }
+        /**
+		 * 单复选框样式修正 - 正方形样式
+		 */
+        .item-box_checkbox {
+            @extend %custom-radio-checkbox;
+        }
+        /**
+		 * 单复选框样式修正 - 圆形样式
+		 */
+        .item-box_radio {
+            @extend %custom-radio-checkbox;
+        }
+    }
+}
+
+
+
+// .animate {
+//     -webkit-animation-delay: 0s, .5s, 2s;
+//     -webkit-animation-duration: 500ms, 1000ms, 1000ms;
+//     -webkit-animation-name: rubberBand, fadeIn, skyblue;
+//     -webkit-animation-fill-mode: forwards;
+//     -webkit-animation-timing-function: ease;
+// }
+// @-webkit-keyframes scale-in {
+//   0% { -webkit-transform: scale(0); }
+//   100% { -webkit-transform: scale(1); }
+// }
+// @-webkit-keyframes button-scale-in {
+//   0% { -webkit-transform: scale(0); }
+//   100% { -webkit-transform: scale(1); }
+// }
+// @-webkit-keyframes button-bounce {
+//   0% { -webkit-transform: scale(1); }
+//   25% { -webkit-transform: scale(.8); }
+//   50% { -webkit-transform: scale(1); }
+//   75% { -webkit-transform: scale(.9); }
+//   100% { -webkit-transform: scale(1); }
+// }
+// @-webkit-keyframes rotate {
+//     0% { -webkit-transform: rotate(0deg); }
+//     100% { -webkit-transform: rotate(360deg); }
+// }
+// @-webkit-keyframes magenta {
+//     0% { border: 1px solid magenta; }
+//     99.99% { border: 1px solid magenta; }
+//     100% { border: 1px solid skyblue; }
+// }
+// @-webkit-keyframes skyblue {
+//     0% { border: 1px solid skyblue; }
+//     99.99% { border: 1px solid skyblue; }
+//     100% { border: 1px solid magenta; }
+// }

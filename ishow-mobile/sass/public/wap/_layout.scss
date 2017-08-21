@@ -1,0 +1,24 @@
+%layout-m{
+    position: absolute;
+    top:50%;
+    @include transform(translateY(-50%));
+}
+
+//垂直居中，水平居左
+.layout-ml{
+    @extend %layout-m;
+    left:0;
+}
+
+//垂直居中，水平居右
+.layout-mr{
+    @extend %layout-m;
+    right:0;
+}
+
+//垂直水平居中
+.layout-mc{
+    @extend %layout-m;
+    left:50%;
+    @include transform(translateX(-50%));
+}

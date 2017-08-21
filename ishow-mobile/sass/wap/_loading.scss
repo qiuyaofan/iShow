@@ -1,0 +1,80 @@
+//预加载样式
+.loading-container {
+    background-color: #eaeaea;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+}
+.loading-main {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -1rem 0 0 -1rem;
+    width: 2rem;
+    height: 2rem;
+}
+// .loading-pic {
+//     background: url(http://img.yi114.com/2015929174723_loading_icon_1.png) no-repeat;
+//     background-size: contain;
+//     width: 4.5rem;
+//     height: 3.3rem;
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     margin: 2rem auto 0;
+// }
+.loading-icon {
+    background: url(http://img.yi114.com/2015929174723_loading_icon_2.png) no-repeat;
+    background-size: contain;
+    width: 2rem;
+    height: 2rem;
+    -webkit-animation: loadingrotate 1s linear infinite;
+    animation: loadingrotate 1s linear infinite;
+}
+.loading-txt {
+    font-size: .6rem;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    line-height: 2rem;
+    text-align: center;
+}
+.loading-img {
+    width: initial !important;
+    max-width: 100%;
+    margin-left: 10px;
+}
+@-webkit-keyframes loadingrotate {
+    0% {
+        -webkit-transform: rotateZ(-360deg);
+        transform: rotateZ(-360deg);
+    }
+    100% {
+        -webkit-transform: rotateZ(0);
+        transform: rotateZ(0);
+        visibility: visible;
+    }
+}
+@keyframes loadingrotate {
+    0% {
+        -webkit-transform: rotateZ(-360deg);
+        -ms-transform: rotateZ(-360deg);
+        transform: rotateZ(-360deg);
+    }
+    100% {
+        -webkit-transform: rotateZ(0);
+        -ms-transform: rotateZ(0);
+        transform: rotateZ(0);
+        visibility: visible;
+    }
+}

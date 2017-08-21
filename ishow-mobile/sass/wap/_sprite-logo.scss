@@ -1,0 +1,38 @@
+$spriteLogoW:1.15rem;
+
+.pic{
+  background-image: url(../images/sprite-logo/sprite.png);
+  background-size: 4.6rem 3.45rem;
+  background-repeat: no-repeat;
+}
+
+.icon-pic-1 {
+  background-position: 0 0;
+}
+.icon-pic-10 {
+  background-position: -3.45rem 0;
+}
+.icon-pic-2 {
+  background-position: -1.15rem 0;
+}
+.icon-pic-3 {
+  background-position: 0 -1.15rem;
+}
+.icon-pic-4 {
+  background-position: -1.15rem -1.15rem;
+}
+.icon-pic-5 {
+  background-position: -2.3rem 0;
+}
+.icon-pic-6 {
+  background-position: -2.3rem -1.15rem;
+}
+.icon-pic-7 {
+  background-position: 0 -2.3rem;
+}
+.icon-pic-8 {
+  background-position: -1.15rem -2.3rem;
+}
+.icon-pic-9 {
+  background-position: -2.3rem -2.3rem;
+}

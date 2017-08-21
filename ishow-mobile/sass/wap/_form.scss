@@ -1,0 +1,83 @@
+/*
+ 表单提交
+ */
+%form-control,
+.form-control {
+  display: block;
+  width: 100%;
+  height: .77rem; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+  padding: 10px;
+  font-size: .3rem;
+  line-height: .77rem;
+  color: #333;
+  background-color: #fff;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+
+  // Placeholder
+  @include placeholder;
+
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+  }
+
+  &:focus{
+    outline: none;
+  }
+
+  // [converter] extracted textarea& to textarea.form-control
+}
+
+.form-container{
+    position:relative;
+    padding-bottom:.4rem;
+}
+
+
+.form-input-1,
+.form-input-2{
+    float:left;
+    width: 64%;
+    margin-right:.17rem;
+}
+.form-input-2{
+    width: 3rem;
+}
+.form-input-3{
+    float:left;
+    line-height: 37px;
+    color: #ff443b;
+}
+.form-textarea{
+  border:1px solid #999;
+  height: 1.64rem;
+  padding: .1rem .2rem;
+}
+/*验证码发送冻结状态*/
+.timeout-main{
+    &.disabled{
+        color:#999;
+    }
+}
+
+#global-tip{
+  z-index:9999;
+}
+.validate-message{
+    width: 100%;
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    text-align: left;
+    color: #ff6a6a;
+    font-size: .24rem;
+}

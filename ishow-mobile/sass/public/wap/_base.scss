@@ -1,0 +1,294 @@
+$z-index:100;
+/*
+ 基础样式
+ */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, code, em, img, q, small, strong, dd, dl, dt, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ul,li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color:#333;
+}
+
+img {
+    border: none;
+}
+
+a:focus, input:focus, button:focus {
+    outline: none;
+}
+
+window, html, body {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overflow: scroll !important;
+}
+
+html {
+  // font-size: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "黑体", Arial, sans-serif;
+    font-size: 0.3rem;
+    line-height: 1.42857;
+    color: #333;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+}
+
+
+html{
+    font-size: 312.5%;
+    line-height: 1;
+    height: 100%;
+
+    @at-root{
+        @media screen and (max-width:359px) and (orientation:portrait) {
+            html { font-size: 266.67%; }
+        }
+        @media screen and (min-width:360px) and (max-width:374px) and (orientation:portrait) {
+            html { font-size: 300%; }
+        }
+        @media screen and (min-width:384px) and (max-width:399px) and (orientation:portrait) {
+            html { font-size: 320%; }
+        }
+        @media screen and (min-width:400px) and (max-width:413px) and (orientation:portrait) {
+            html { font-size: 333.33%; }
+        }
+        @media screen and (min-width:414px) and (max-width:431px) and (orientation:portrait){
+            html { font-size: 345%; }
+        }
+        @media screen and (min-width:432px) and (max-width:479px) and (orientation:portrait){
+            html { font-size:360%; }
+        }
+        @media screen and (min-width:480px)and (max-width:639px) and (orientation:portrait){
+           html{ font-size:400%;}
+        }
+        @media screen and (min-width:640px) and (orientation:portrait){
+           html{ font-size:533.33%;}
+        }
+    }
+}
+
+/**
+ * 原子类 - 字体颜色
+ */
+.cfff { color: #fff; }
+
+/**
+ * 原子类 - 字体种类
+ */
+.arial { font-family: Arial; }
+
+/**
+ * 原子类 - 字体大小
+ */
+.f0 { font-size: 0; }
+.f18{font-size:.18rem;}
+.f20{font-size:.20rem;}
+.f26{font-size:.26rem;}
+.f28{font-size:.28rem;}
+.f30{font-size:.30rem;}
+.f36{font-size:.36rem;}
+.f40{font-size:.40rem;}
+
+/**
+ * 原子类 - 背景颜色类
+ */
+.bg-fff { background-color: #fff; }
+
+/**
+ * 原子类 - 填充
+ */
+.p20{
+    padding:.2rem;
+}
+.p30{
+    padding:.3rem;
+}
+.pt20{
+    padding-top:.2rem;
+}
+.pt10{
+    padding-top:.1rem;
+}
+
+/**
+ * 原子类 - 间距
+ */
+.mt10{
+    margin-top:.1rem;
+}
+.mt20{
+    margin-top:.2rem;
+}
+.mt30{
+    margin-top:.3rem;
+}
+
+.mt40{
+    margin-top:.4rem;
+}
+
+/**
+ * 原子类 - 文本控制
+ */
+.tl { text-align: left; }
+.tr { text-align: right; }
+.tc { text-align: center; }
+.of { overflow: hidden; }
+
+/**
+ * 原子类 - 定位
+ */
+.fl { float: left; }
+.fr { float: right; }
+.pr { position: relative; }
+
+/**
+ * global - a标签样式
+ */
+a:focus,
+button:focus { outline: none; }
+
+a{
+    text-decoration:none;
+}
+
+/**
+ * global - 圆形
+ */
+.br100{
+    border-radius:100%;
+}
+
+/**
+ * global - 内级元素
+ */
+.inline-block{
+    display: inline-block;
+}
+
+.block{
+    display: block;
+}
+
+.v-hide{
+    visibility:hidden;
+}
+
+.hide,.none{
+    display: none;
+}
+
+/**
+ * global -  行高
+ */
+.lh15{
+    line-height: 1.5;
+}
+/**
+ * global - 清除浮动
+ */
+.clearfix, %clearfix {
+    *zoom: 1;
+
+    &:after {
+        content: " ";
+        display: table;
+        height: 0;
+        clear: both;
+    }
+}
+/**
+ * global - width
+ */
+.w-100{
+    width: 100%;
+}
+
+/**
+ * placeholder
+ */
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #929292;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #929292;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #929292;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #929292;
+}
+
+/**
+ * global - 全局提示
+ */
+
+#global-tip {
+    position: fixed;
+    margin-top: -30px;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    z-index: $z-index +110;
+    span {
+        background-color: rgba(0, 0, 0, .75);
+        padding: 15px;
+        color: #fff;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    // span:before {
+    //     font: normal 26px/1 FontAwesome;
+    //     text-rendering: auto;
+    //     -webkit-font-smoothing: antialiased;
+    //     -moz-osx-font-smoothing: grayscale;
+    //     margin-right: 10px;
+    //     position: relative;
+    //     top: 3px;
+    // }
+    // span.success:before {
+    //     content: '\f05d';
+    // }
+    // span.error:before {
+    //     content: '\f071';
+    // }
+}

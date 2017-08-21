@@ -1,0 +1,75 @@
+// demo : https://codepen.io/janking/pen/PbgLRN
+// .btn{
+//   @extend %button-init;
+// }
+
+// .btn-primary {
+//   @include button-variant(#fff,#2480FE,#2480FE);
+// }
+
+// .btn-default {
+//   @include button-variant(#fff,#C1BDC9,#C1BDC9);
+// }
+// .btn-success {
+//   @include button-variant(#fff,#3ACB68,#3ACB68);
+// }
+// .btn-error {
+//   @include button-variant(#fff,#FC605D,#FC605D);
+// }
+
+// .btn-xs {
+//   @include button-size(3px,5px,12px,1,3px);
+// }
+
+// .btn-sm {
+//   @include button-size(5px,10px,12px,1,3px);
+// }
+// .btn-lg {
+//   @include button-size(8px,15px,14px,1,3px);
+// }
+
+@mixin button-size($padding-vertical,$padding-horizontal,$font-size,$line-height,$border-radius){
+  padding: $padding-vertical $padding-horizontal;
+  line-height: $line-height;
+  border-radius: $border-radius;
+  font-size: $font-size;
+}
+
+@mixin button-variant($color,$background,$border-color){
+  color: $color;
+  background-color: $background;
+  border-color: $border-color;
+  transition: all .2s ease;
+  cursor: pointer;
+  &:hover,
+  &:focus,
+  &:active {
+    color: $color;
+    background-color: darken($background, 3%);
+    border-color: darken($border-color, 5%);
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $background;
+      border-color: $border-color;
+    }
+  }
+}
+
+
+%button-init{
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
