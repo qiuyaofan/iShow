@@ -1,0 +1,253 @@
+{
+    "posJson":{
+        "top": 5,
+        "left": 10
+    },
+    "key":{
+      "1":"text",
+      "2":"img",
+      "3":"textarea",
+      "4":"radio",
+      "5":"checkbox",
+      "6":"select",
+      "7":"button"
+    },
+    "initPage":{
+        "page": "page",
+        "json": [],
+        "bgImage":{
+            "backgroundColor":"",
+            "coord":"",
+            "url":""
+        }
+    },
+    "initJsons":{
+        "text": {
+            "type": 1,
+            "content": "你要编辑的文字",
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": 300,
+            "height": 38,
+            "text": {
+                "backgroundColor": "rgba(0,0,0,0)",
+                "color": "rgba(51, 51, 51,1)",
+                "opacity": 100,
+                "padding": 0,
+                "lineHeight": 1,
+                "fontFamily": "",
+                "fontSize": 24,
+                "writingMode": "horizontal-tb",
+                "textAlign": "left",
+                "fontWeight": "normal",
+                "fontStyle": "normal",
+                "textDecoration": "none",
+                "borderWidth": 0,
+                "borderRadius": 0,
+                "borderColor": "rgba(204, 204, 204,1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0,
+                "rotate": 0
+            },
+            "animate":[]
+        },
+        "img": {
+            "type": 2,
+            "content": "",
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": 175,
+            "height": "auto",
+            "text": {
+                "backgroundColor": "rgba(0,0,0,0)",
+                "opacity": 100,
+                "padding": 0,
+                "rotate": 0,
+                "borderWidth": 0,
+                "borderRadius": 0,
+                "borderColor": "rgba(204, 204, 204,1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0
+            },
+            "animate":[]
+        },
+        "textarea": {
+            "type": 3,
+            "form":{
+                "name":"",
+                "cname":"",
+                "label":""
+            },
+            "content": "",
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": 300,
+            "height": 35,
+            "text": {
+                "color": "rgba(51, 51, 51,1)",
+                "backgroundColor": "rgba(255,255,255,1)",
+                "themeColor":"rgba(7, 162, 240, 1)",
+                "opacity": 100,
+                "padding": 0,
+                "rotate": 0,
+                "borderWidth": 1,
+                "borderRadius": 0,
+                "borderColor": "rgba(7, 162, 240, 1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0
+            },
+            "animate":[]
+        },
+        "radio": {
+            "type":4,
+            "content": "",
+            "form":{
+                "options":[],
+                "dire":"v",
+                "required": false,
+                "cname":""
+            },
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": "300",
+            "height": "auto",
+            "text": {
+                "color": "rgba(51, 51, 51,1)",
+                "backgroundColor": "rgba(255,255,255,1)",
+                "opacity": 100,
+                "padding": 0,
+
+                "rotate": 0,
+                "borderWidth": 1,
+                "borderRadius": 0,
+                "borderColor": "rgba(7, 162, 240, 1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0,
+                "themeColor":"rgba(7, 162, 240, 1)"
+            },
+            "animate":[]
+        },
+        "checkbox": {
+            "type":5,
+            "content": "",
+            "form":{
+                "options":[],
+                "dire":"v",
+                "required": false,
+                "cname":""
+            },
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": "300",
+            "height": "auto",
+            "text": {
+                "color": "rgba(51, 51, 51,1)",
+                "backgroundColor": "rgba(255,255,255,1)",
+                "opacity": 100,
+                "padding": 0,
+                "rotate": 0,
+                "borderWidth": 1,
+                "borderRadius": 0,
+                "borderColor": "rgba(7, 162, 240, 1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0,
+                "themeColor":"rgba(7, 162, 240, 1)"
+            },
+            "animate":[]
+        },
+        "select": {
+            "type":6,
+            "content": "",
+            "form":{
+                "options":[],
+                "selectedVal":0,
+                "required": false,
+                "cname":""
+            },
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": "300",
+            "height": "auto",
+            "text": {
+                "color": "rgba(51, 51, 51,1)",
+                "backgroundColor": "rgba(255,255,255,1)",
+                "opacity": 100,
+                "padding": 0,
+                "fontSize":16,
+                "rotate": 0,
+                "borderWidth": 1,
+                "borderRadius": 0,
+                "borderColor": "rgba(7, 162, 240, 1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0,
+                "themeColor":"rgba(7, 162, 240, 1)"
+            },
+            "animate":[]
+        },
+        "button": {
+            "type":7,
+            "content": "",
+            "form":{
+                "name": "提交",
+                "tip": "感谢您的参与",
+                "link": "",
+                "time": "",
+                "noRepeat": false,
+                "timeRange":false
+            },
+            "position": {
+                "top": 0,
+                "left": 10
+            },
+            "width": "300",
+            "height": "38",
+            "text": {
+                "color": "rgba(255, 255, 255,1)",
+                "backgroundColor": "rgba(7, 162, 240, 1)",
+                "opacity": 100,
+                "padding": 0,
+                "fontSize":16,
+                "rotate": 0,
+                "borderWidth": 1,
+                "borderRadius": 0,
+                "borderColor": "rgba(7, 162, 240, 1)",
+                "borderStyle": "solid",
+                "shadowColor": "rgba(204, 204, 204,1)",
+                "shadowWidth": 0,
+                "shadowRadius": 10,
+                "shadowDire": 0
+            },
+            "animate":[]
+        }
+    }
+}

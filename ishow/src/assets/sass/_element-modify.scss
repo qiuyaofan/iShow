@@ -1,0 +1,49 @@
+$el-color-default:#20a0ff;
+.el-button{
+    
+    // &:focus{
+    //     color: #1f2d3d;
+    //     border-color: #bfcbd9;
+    // }
+    &.active{
+        color: $el-color-default;
+        border-color: $el-color-default;
+    }
+}
+.el-radio__label{
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.line_center{
+    margin-top: 10px;
+    text-align: center;
+}    
+
+.el-dialog--auto{
+    width:auto;
+}
+.el-dialog--small-1000{
+    width:1000px;
+}
+
+.el-dialog--small-700{
+    width:700px;
+}
+
+.el-select-dropdown__wrap{
+    max-height: 500px;
+}
+.el-select-dropdown__item{
+    padding:4px 10px;
+    height: 30px;
+}
+
+//弹层阴影
+// .el-dialog__wrapper,
+// .el-message-box__wrapper {
+//     background: rgba(0,0,0,0.5);
+// }
+// .v-modal{
+//     display: none;
+// }

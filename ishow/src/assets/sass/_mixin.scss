@@ -1,0 +1,38 @@
+%cover{
+    &:before{
+        content:'';
+        position:absolute;
+        @extend %wh100;
+        background:rgba(0, 0, 0, 0.34);
+        z-index: 2;
+    }
+    &:after{
+        box-sizing: content-box;
+        content: "";
+        border: 2px solid #fff;
+        border-left: 0;
+        border-top: 0;
+        height: 30px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: rotate(38deg) scaleY(1);
+        width: 14px;
+        transition: transform 0.15s cubic-bezier(0.71, -0.46, 0.88, 0.6) 0.05s;
+        transform-origin: center;
+        z-index: 3;
+        /* font-size: 16px; */
+        margin-top: -20px;
+        margin-left: -7px;
+    }
+
+}
+
+%bg{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: 0;
+    background-color: rgba(0,0,0,.8);
+}

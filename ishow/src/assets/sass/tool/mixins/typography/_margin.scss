@@ -1,0 +1,57 @@
+/// @exammle scss - Usage
+///   @include margin-init(50,5,true false false false);
+///
+/// @exammle css - CSS Output
+/// .ml5 {
+///   margin-top: "5px"; }
+/// .ml10 {
+///   margin-top: "10px"; }
+/// .ml15 {
+///   margin-top: "15px"; }
+/// .ml20 {
+///   margin-top: "20px"; }
+/// .ml25 {
+///   margin-top: "25px"; }
+/// .ml30 {
+///   margin-top: "30px"; }
+/// .ml35 {
+///   margin-top: "35px"; }
+/// .ml40 {
+///   margin-top: "40px"; }
+/// .ml45 {
+///   margin-top: "45px"; }
+/// .ml50 {
+// 	  margin-top: "50px"; }
+///
+/// @require {function} contains-falsy
+///
+/// @return {List}
+
+@mixin margin-init($max:30,$interval:5,$direction: true true true){
+	@for $i from $interval through $max {
+		@if $i % $interval == 0{
+			@if(nth($direction,1)){
+				.mt#{$i} {
+					margin-top: $i+'px';
+				}
+			}
+			@if(nth($direction,2)){
+				.mr#{$i} {
+					margin-right: $i+'px';
+				}
+			}
+			@if(nth($direction,3)){
+				.mb#{$i} {
+					margin-right: $i+'px';
+				}
+			}
+			@if(nth($direction,4)){
+				.ml#{$i} {
+					margin-left: $i+'px';
+				}
+			}
+
+		}
+	}
+}
+
