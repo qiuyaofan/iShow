@@ -7,8 +7,8 @@
                 <el-button type="primary" size="mini" @click="confirmDelete">确定</el-button>
             </div>
         </el-popover>
-        <div class="preview-main" :class="{ active: isActive }" @click="toggerActive" @mouseover="visible = true" @mouseout="mouseoutDelete">
-            <div class="preview-page" :style="getBackground">
+        <div class="ishow-previewMain" :class="{ active: isActive }" @click="toggerActive" @mouseover="visible = true" @mouseout="mouseoutDelete">
+            <div class="ishow-previewPage" :style="getBackground">
                 <!-- <textElement 
               v-for="item in showJson" 
               :key="item.id" 
@@ -26,7 +26,7 @@
                   :type="item.type">
               </imgElement> -->
             </div>
-            <div class="page-delete" v-popover:popover1 v-show="visible" @click.stop="">
+            <div class="ishow-pageDelete" v-popover:popover1 v-show="visible" @click.stop="">
                 <i class="el-icon-delete"></i>
             </div>
         </div>

@@ -1,16 +1,16 @@
 <template>
-    <div class="center-container">
-        <div class="show-wrapper">
-            <div class="phone-main tc">
-                <div class="screen mt60">
-                    <div class="tool-bar">
+    <div class="ishow-centerContainer">
+        <div class="ishow-showWrapper">
+            <div class="ishow-phoneMain tc">
+                <div class="ishow-screen mt60">
+                    <div class="ishow-toolBar">
                         <el-tooltip class="item" effect="dark" content="背景" placement="right">
                             <a href="javascript:;" @click="toggleBgEditor">
                                 <i aria-hidden="true" class="fa fa-file-image-o"></i>
                             </a>
                         </el-tooltip>
                     </div>
-                    <div class="v-show show-screen" :style="getBackground">
+                    <div class="v-show ishow-showScreen" :style="getBackground">
                         <normalElement v-for="item in showJson" :key="item.id" :child-json="item" :show-json="showJson" :show-id="showId" :type="item.type" ref="template">
                         </normalElement>
                     </div>

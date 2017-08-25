@@ -1,7 +1,7 @@
 <template>
-    <div class="page-main">
+    <div class="ishow-pageMain">
         <main-show v-for="item in pageJson" :key="item.id" :show-json="item.json" :page="item.page" :active-page="page" :page-json="pageJson"></main-show>
-        <div class="page-create" @click="addPage">
+        <div class="ishow-pageCreate" @click="addPage">
             <i class="el-icon-plus"></i>
         </div>
     </div>

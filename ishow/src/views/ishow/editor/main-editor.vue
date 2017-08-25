@@ -1,6 +1,6 @@
 <template>
-    <div class="right-container mt5">
-        <div class="editor-wrapper" @click.stop="">
+    <div class="ishow-rightContainer mt5">
+        <div class="ishow-editorWrapper" @click.stop="">
             <el-tabs v-model="activeName2" @tab-click="handleClick2" type="border-card" v-if="showId">
                 <el-tab-pane label="样式" name="first">
                     <textEditor :render-json="renderJson" :show-id="showId"></textEditor>

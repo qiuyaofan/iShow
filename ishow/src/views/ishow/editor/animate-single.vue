@@ -275,7 +275,6 @@ export default {
             },
             animateSelect() {
             	this.splitAnimateSelect();
-                console.info('animateSelect',this.json)
             },
             direName() {
             	this.splitAnimateSelect();
@@ -294,7 +293,6 @@ export default {
                 }
             },
             timeChange(val) {
-                console.info(333)
                 if(this.onlyNum(val)===false){
                     this.time=this.timeOld;
                     return false;
@@ -381,7 +379,6 @@ export default {
                 let special=this.animateSelect.split('j-');
                 //打字机
                 this.isTypewriter=special.length===2&&special[1]==='typewriter';
-                console.info('222',this.isTypewriter)
                 
             },
             //animateName转换为animateSelect值

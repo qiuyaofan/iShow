@@ -1,15 +1,15 @@
 <template>
-    <div class="element-wrapper dragged" v-bind:id="showId" v-bind:ctype="type" @click.stop="" :style="{
+    <div class="ishow-elementWrapper dragged" v-bind:id="showId" v-bind:ctype="type" @click.stop="" :style="{
           top: cursorTop + 'px',
           left: cursorLeft + 'px',
           width: elWidth + 'px',
           height: elHeight + 'px',
           transform:'rotate('+rotate+'deg)'
         }">
-        <div v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item">
-                    <img :src="content" alt="" class="element-item_img element-item_drap" :style="{
+                <div class="ishow-elementItem">
+                    <img :src="content" alt="" class="ishow-elementItem_img ishow-elementItem_drap" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -78,7 +78,7 @@ export default {
                 //   this.elWidth=initWidth;
                 // }
                 // if(this.elHeight==='auto'){
-                //     let rect=this.$el.querySelector('.element-item_img').getBoundingClientRect();
+                //     let rect=this.$el.querySelector('.ishow-elementItem_img').getBoundingClientRect();
                 //     this.elHeight=rect.height*this.elWidth/rect.width;
                 // }
             },

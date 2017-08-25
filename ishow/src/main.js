@@ -12,7 +12,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'normalize.css/normalize.css';
 import 'styles/index.scss';
-// import 'components/Icon-svg/index';
+import 'components/Icon-svg/index';
 import 'assets/iconfont/iconfont';
 import * as filters from './filters';
 import Multiselect from 'vue-multiselect';
@@ -21,7 +21,7 @@ import 'vue-multiselect/dist/vue-multiselect.min.css';
 import vueWaves from './directive/waves';
 import vueSticky from './directive/sticky';
 import errLog from 'store/errLog';
-import './mock/index.js';
+// import './mock/index.js';
 import 'assets/sass/style.scss';
 // import './styles/mixin.scss';
 

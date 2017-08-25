@@ -3,7 +3,6 @@ const getters = {
   livenewsChannels: state => state.app.livenewsChannels,
   token(state) {
     // state => state.user.token
-    console.info(state)
     return state.user.token;
   },
   avatar: state => state.user.avatar,

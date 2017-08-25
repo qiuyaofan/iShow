@@ -1,8 +1,8 @@
 <template>
-    <div class="background-style">
+    <div class="ishow-bgStyle">
         <div class="form-group">
             <div>图片背景</div>
-            <div class="el-upload el-upload--picture-card background-style-main mt10" @click="changeImage">
+            <div class="el-upload el-upload--picture-card ishow-bgStyle--main mt10" @click="changeImage">
                 <i class="el-icon-plus"></i>
                 <img :src="pageJson.bgImage.url" alt="" v-if="pageJson.bgImage.url">
             </div>
@@ -82,7 +82,6 @@ export default {
                     'backgroundColor': val
                 }
             });
-            console.info(val)
         }
     }
 };

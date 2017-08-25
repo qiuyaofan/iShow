@@ -1,12 +1,14 @@
 
 $(function () {
 	var $window = $(window);
+	var $body=$('body');
 	var designW = 320;
 	var designH = 460;
 	var ww = $window.width();
 	var wh = $window.height();
 	var viewH,viewW;
 	var pageJson;
+	var $music=$('.music');
 	var tpl = {
 		page: '<div class="page">{{html}}</div>',
 		text: '<p class="text-item" style="{{style}}">{{html}}</p>',
@@ -15,28 +17,101 @@ $(function () {
 	var animatePrefix='-webkit-animation-';
 
 	var $wrapper = $('.swiper-wrapper');
+	var audioApi;
+
+	$body.on('click','.J-submit',function(){
+			$(this).parents('form').trigger('submit');
+	})
 
 	function init() {
-		pageJson = handelJson(json2);
+		pageJson = handelJson(GLOBALPAGEJSON.page);
+		console.info(pageJson)
 		renderHtml();
-		// animateJson=pageJson.animate;
+		initIUI();
 		//设置viewport content scale
 		viewport();
-		// initSlippage();
+		initAnimate();
+		initSlippage();
+		bgMusic(GLOBALPAGEJSON.setting);
+		//animateStart();
+	}
+
+	//处理音乐
+	function bgMusic(setting){
+		if(!(setting.bgMusic&&setting.bgMusic.url)){
+			return;
+		}
+		audioApi={
+			audio:new Audio(setting.bgMusic.url),
+			isPlaying:true,
+			play:function(){
+					audioApi.audio.play();
+					$music.removeClass('pause');
+			},
+			stop:function(){
+					audioApi.audio.pause();
+					$music.addClass('pause');
+			},
+			loop:function(isLoop){
+					audioApi.audio.loop=isLoop;
+			}
+		};
+		audioApi.play();
+		audioApi.loop(true);
+
+		//点击暂停、播放音乐
+		$body.on('touchstart','.music', function(event) {
+				var $this = $(this);
+				//audioApi.removeStart();
+				//切换状态
+				audioApi.isPlaying=!audioApi.isPlaying;
+				if (audioApi.isPlaying) {
+						//正在播放
+						audioApi.play();
+				} else {
+						// 暂停
+						audioApi.stop();
+				}
+		});
+	}
+	//初始化iui
+	function initIUI(){
+		//替换所有basepath
+		$('.J-path').IUI('basepath');
+		ajaxForm($('.J-form'));
+	}
+		//ajax提交，提交成功自动跳转
+	function ajaxForm(form, tag) {
+		var $form = form;
+		tag = tag || '';
+		if (!$form.length) {
+				return false;
+		}
+		$form.IUI('ajaxForm', {
+				before: function(event, config) {
+						$.loading(true, true);
+				},
+				success: function(res) {
+						$.pub('ajaxFormSuccess' + tag, [$form, res]);
+				},
+				error: function() {
+						$.loading(false);
+				}
+		})
+	}
+
+	//初始化动画
+	function initAnimate() {
 		var len=pageJson.page.length;
 		if(!len){
 			return;
 		}
+		//初始化所有动画
 		for(var i=0;i<len;i++){
 			runAnimate(i);
 		}
-		// for(var i=0,len=pageJson.page.length-1;i<=len;i++){
-		// 	runAnimate(i);
-		// }
-		initSlippage();
-		
-		//animateStart();
 	}
+
 	//调用slippage
 	function initSlippage() {
 		//swiper调用
@@ -70,6 +145,7 @@ $(function () {
  }
 	//渲染html
 	function renderHtml() {
+		console.info(pageJson)
 		var html = template('tpl-1', pageJson);
 		// animateJson=pageJson.animate;
 		$wrapper.html(html);
@@ -168,46 +244,51 @@ $(function () {
 
 	//处理渲染json
 	function handelJson(json) {
-		var temp,
-			html = '',
-			result = {},
-			page = [],
-			pageResult,
-			tempResult,
-			animatePage = [],
-			animateSingle,
-			jsonPage=[],
-			jsonSingle;
+		var html = '',
+				result = {},
+				page = [],
+				animatePage = [],
+				jsonPage=[],
+				bgPage=[];
 		for (var i = 0; i < json.length; i++) {
-			tempResult = {};
-			temp = json[i].json;
-			pageResult = [];
-			animateSingle = {};
-			jsonSingle={};
+			var temp = json[i].json;
+			var pageResult = [];
+			var animateSingle = {};
+			var jsonSingle={};
+			var hasForm;
 			for (var j = 0; j < temp.length; j++) {
+				var temp2=temp[j];
+				var tempResult = {};
 				//动画部分
-				animateSingle[temp[j].id] = renderAnimate(temp[j]);
+				animateSingle[temp2.id] = renderAnimate(temp2);
 				//样式部分
-				tempResult.json = temp[j];
-				tempResult.form = temp[j].form;
-				tempResult.id = temp[j].id;
-				tempResult.type = temp[j].type;
-				tempResult.content = temp[j].content;
-				tempResult.theme = temp[j].text.themeColor;
-				tempResult.style = renderStyle(temp[j]);
-				tempResult.style['z-index'] = temp[j].zIndex;
-				tempResult.style['box-shadow'] = handleShadow(temp[j].text);
-				tempResult.style.transform = rotate(temp[j].text);
+				tempResult.json = temp2;
+				tempResult.form = temp2.form;
+				tempResult.id = temp2.id;
+				tempResult.type = temp2.type;
+				tempResult.content = temp2.content;
+				tempResult.theme = temp2.text.themeColor;
+				//样式json
+				tempResult.style = renderStyle(temp2);
+				tempResult.style['z-index'] = temp2.zIndex;
+				tempResult.style['box-shadow'] = handleShadow(temp2.text);
+				//旋转角度
+				tempResult.style.transform = rotate(temp2.text);
 				tempResult.style = styleToString(tempResult.style);
 				pageResult.push(parseJson(tempResult));
-				jsonSingle[temp[j].id]=parseJson(tempResult);
+				jsonSingle[temp2.id]=parseJson(tempResult);
+				tempResult.type==7?hasForm=true:false;
 			}
 			//动画部分
 			animatePage.push(animateSingle);
 			//json部分
 			jsonPage.push(jsonSingle);
 			//样式部分
-			page.push({ list: $.extend([], pageResult) });
+			page.push({ 
+				list: $.extend([], pageResult),
+				hasForm:hasForm,
+				bg:json[i].bgImage
+			});
 
 		}
 

@@ -28,7 +28,7 @@
                             <span v-if="inputRange[item.name+'Min']||inputRange[item.name+'Max']">{{item.label+'（'+inputRange[item.name+'Min']+'-'+inputRange[item.name+'Max']+'）'}}</span>
                     <span v-else>{{item.label}}</span>
                     </el-checkbox>
-                    <div v-if="item.range===true&&index===validateIndex" @mouseover.stop="validateIn(index)" class="navbar-main_validate">
+                    <div v-if="item.range===true&&index===validateIndex" @mouseover.stop="validateIn(index)" class="ishow-navbarMain_validate">
                         <el-col :span="11">
                             <el-input v-model="inputRange[item.name+'Min']" placeholder="最小值" size="mini"></el-input>
                         </el-col>

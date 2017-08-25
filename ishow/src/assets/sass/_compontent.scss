@@ -244,3 +244,30 @@
     }
   }
 }
+
+.c-list1{
+  @at-root{
+    .c-list1--row{
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      background-color: #fff;
+      padding-left:10px;
+      padding-right:10px;
+      &:nth-child(odd){
+        background-color: #f9f9f9; 
+      }
+    }
+    .c-list1--layout{
+      position: absolute;
+      right:10px;
+      top:0;
+    }
+    
+  }
+}
+.c-font--default{
+  color:#ccc;
+  font-size: 16px;
+  cursor: pointer;
+}

@@ -1,21 +1,21 @@
 <template>
-    <div v-if="isActive" class="button2-menu" :style="{
+    <div v-if="isActive" class="ishow-button2Menu" :style="{
     	top:top+'px',
     	left:left+'px'
     }">
-        <div class="button2-menu_item" @click.stop="update" v-if="cType!==1">
+        <div class="ishow-button2Menu_item" @click.stop="update" v-if="cType!==1">
             <a>编辑</a>
         </div>
-        <div class="button2-menu_item" @click.stop="countIndex(1)">
+        <div class="ishow-button2Menu_item" @click.stop="countIndex(1)">
             <a>向上一层</a>
         </div>
-        <div class="button2-menu_item" @click.stop="countIndex(-1)">
+        <div class="ishow-button2Menu_item" @click.stop="countIndex(-1)">
             <a>向下一层</a>
         </div>
-        <div class="button2-menu_item" @click.stop="setIndexTop()">
+        <div class="ishow-button2Menu_item" @click.stop="setIndexTop()">
             <a>置顶</a>
         </div>
-        <div class="button2-menu_item" @click.stop="setIndex(1)">
+        <div class="ishow-button2Menu_item" @click.stop="setIndex(1)">
             <a>置底</a>
         </div>
     </div>

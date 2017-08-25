@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-main" @click="validateOut">
+    <div class="ishow-navbarMain" @click="validateOut">
         <!-- 下啦选择弹层类型 -->
         <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item index="1">文本&nbsp;<i class="fa fa-font" aria-hidden="true"></i></el-menu-item>
@@ -7,10 +7,10 @@
                 <div @click="showTool('picTool')">图片&nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></div>
             </el-menu-item>
             <el-menu-item index="5">
-                <div @click="showTool('videoTool')">音频&nbsp;<i class="fa fa-music" aria-hidden="true"></i></div>
+                <div @click="showTool('audioTool')">音频&nbsp;<i class="fa fa-music" aria-hidden="true"></i></div>
             </el-menu-item>
             <el-menu-item index="4">
-                <div @click="showTool('videoTool2')">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></div>
+                <div @click="showTool('videoTool')">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></div>
             </el-menu-item>
             
             <el-submenu index="3">
@@ -86,8 +86,8 @@
         </el-dialog>
         <picTool :type="'pic'" :picJson="picJson" ref="picTool" :addElement="addPicElement"></picTool>
         <picTool :type="'bg'" :picJson="picJson" ref="picTool2" :addBg="addBg" :ratio="0.695"></picTool>
-        <videoTool :type="'audio'" :jsonData="audioJson" ref="videoTool"></videoTool>
-        <videoTool :type="'video'" :jsonData="videoJson" ref="videoTool2"></videoTool>
+        <videoTool :type="'audio'" :jsonData="audioJson" ref="audioTool"></videoTool>
+        <videoTool :type="'video'" :jsonData="videoJson" ref="videoTool"></videoTool>
     </div>
 </template>
 <script>
@@ -244,11 +244,11 @@ export default {
             //获取音频列表
             // console.info(1111,this.fetchAudioList());
             this.fetchAudioList().then(function(data){
-                this.setLoading('videoTool');
+                this.setLoading('audioTool');
             }.bind(this));
             //获取视频列表
             this.fetchVideoList().then(function(data){
-                this.setLoading('videoTool2');
+                this.setLoading('videoTool');
             }.bind(this));
             //获取验证字段
             this.fetchValidateJson();
@@ -337,7 +337,7 @@ export default {
             //获取本地图片
             fetchAudioList() {
                 return getAudioList().then(response => {
-                    this.audioJson = this.changeToArray(response.data);
+                    this.audioJson = response.data;
                 }).catch(err => {
                     console.info(err)
                 });
@@ -345,7 +345,7 @@ export default {
             //获取本地图片
             fetchVideoList() {
                 return getVideoList().then(response => {
-                    this.videoJson = this.changeToArray(response.data);
+                    this.videoJson = response.data;
                 }).catch(err => {
                     console.info(err)
                 });
@@ -415,6 +415,7 @@ export default {
                 }
                 this.isBg=false;
                 bus.$emit('change-tab', 'second');
+                bus.$emit('add-histroy');
             },
             closeDialog() {
                 this.dialogVisible = false;
@@ -522,6 +523,7 @@ export default {
                 //     bus.$emit('mainShow-update-img');
                 // },200);
                 bus.$emit('change-tab','second');
+                bus.$emit('add-histroy');
             }
         }
 };

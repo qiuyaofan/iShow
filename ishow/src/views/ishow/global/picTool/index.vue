@@ -1,6 +1,6 @@
 <template>
     <!-- type:picCrop,pic,bg -->
-    <div class="picTool-main">
+    <div class="ishow-picToolMain">
          <slot></slot> 
         <!-- 图片素材 -->
         <!-- <pic-layer :pic-json="picJson" ref="picLayer"></pic-layer> -->

@@ -1,11 +1,11 @@
 <template>
-    <div class="main-setting">
+    <div class="ishow-mainSetting">
         <transition name="fade">
-            <div v-if="disable" class="main-setting--bg" @click="toggle"></div>
+            <div v-if="disable" class="ishow-mainSetting--bg" @click="toggle"></div>
         </transition>
         
         <transition name="slide-fade">
-            <div v-if="disable" class="main-setting--info">
+            <div v-if="disable" class="ishow-mainSetting--info">
                 <el-tabs type="card" v-model="activeName">
                     <el-tab-pane label="常用设置" name="first">
                         <div class="p10">
@@ -42,8 +42,8 @@
         </transition>
 
         <transition name="slide-fade">
-            <div v-if="disable" class="main-setting--phone">
-                <div class="main-setting--screen">
+            <div v-if="disable" class="ishow-mainSetting--phone">
+                <div class="ishow-mainSetting--screen">
                     <iframe width="100%" height="100%" border="none" src="/"></iframe>
                 </div>
             </div>

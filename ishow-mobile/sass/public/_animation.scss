@@ -25,6 +25,15 @@
     animation-duration: .75s
 }
 
+@include keyframes(audioPlay){
+    0% { 
+        @include transform(rotate(0deg));
+    }
+    100% { 
+        @include transform(rotate(360deg));
+    }
+} 
+
 @include keyframes(fadeIn) {
     0% {
         opacity: 0.3

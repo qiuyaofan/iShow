@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-main" @click="validateOut">
+    <div class="ishow-navbarMain" @click="validateOut">
         <!-- 下啦选择弹层类型 -->
         <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item index="1">文本&nbsp;<i class="fa fa-font" aria-hidden="true"></i></el-menu-item>

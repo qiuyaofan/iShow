@@ -1,6 +1,6 @@
 <template>
     <!-- ctype,id,position,width -->
-    <div class="element-wrapper" v-bind:id="showId" v-bind:ctype="type" :style="{
+    <div class="ishow-elementWrapper" v-bind:id="showId" v-bind:ctype="type" :style="{
           top: cursorTop + 'px',
           left: cursorLeft + 'px',
           width: elWidth + 'px',
@@ -9,16 +9,16 @@
           transform:'rotate('+rotate+'deg)'
         }">
         <!-- 各种样式 -->
-        <div v-if="type===1" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===1" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item" v-html="content"></div>
+                <div class="ishow-elementItem" v-html="content"></div>
             </div>
         </div>
         <!-- 图片 -->
-        <div v-if="type===2" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===2" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item">
-                    <img :src="content" alt="" class="element-item_img element-item_drap" :style="{
+                <div class="ishow-elementItem">
+                    <img :src="content" alt="" class="ishow-elementItem_img ishow-elementItem_drap" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -26,10 +26,10 @@
             </div>
         </div>
          <!-- 输入框 -->
-        <div v-if="type===3" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===3" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap">
-                    <textarea :name="json.form.name" :placeholder="json.form.cname" class="element-item_textarea" :style="{
+                <div class="ishow-elementItem ishow-elementItem_drap">
+                    <textarea :name="json.form.name" :placeholder="json.form.cname" class="ishow-elementItem_textarea" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -38,10 +38,10 @@
             </div>
         </div>
         <!-- 单选 -->
-         <div v-if="type===4" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+         <div v-if="type===4" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_radio tl">
-                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_radio tl">
+                    <div class="ishow-elementItem_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
                     <el-radio-group :class="{vertical:json.form.dire==='v'}" value='[]'>
                         <el-radio v-for="(radioItem, index) in json.form.options" :key="radioItem.id">{{radioItem}}</el-radio>
                     </el-radio-group>
@@ -49,10 +49,10 @@
             </div>
         </div>
         <!-- 多选 -->
-         <div v-if="type===5" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+         <div v-if="type===5" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_checkbox tl">
-                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_checkbox tl">
+                    <div class="ishow-elementItem_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
                     <el-checkbox-group  :class="{vertical:json.form.dire==='v'}">
                         <el-checkbox v-for="(radioItem, index) in json.form.options" :label="radioItem.id" :key="radioItem.id">{{radioItem}}</el-checkbox>
                     </el-checkbox-group>
@@ -60,9 +60,9 @@
             </div>
         </div>
         <!-- 下拉框 -->
-         <div v-if="type===6" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+         <div v-if="type===6" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_select tl">
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_select tl">
                     <el-select :value="json.form.options[json.form.selectedVal]" :style="{'font-size':json.text.fontSize+'px'}">
                         <el-option
                               v-for="(selectItem,selectIndex) in json.form.options"
@@ -75,10 +75,10 @@
             </div>
         </div>
         <!-- 按钮 -->
-        <div v-if="type===7" v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===7" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_button tc">
-                    <a class="element-item_button_a" :href="json.form.link" :style="{
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_button tc">
+                    <a class="ishow-elementItem_button_a" :href="json.form.link" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px',
                     'line-height':elHeight + 'px',
@@ -214,7 +214,7 @@ export default {
             },
             //同步this.content
             changeText() {
-                this.content = this.$el.querySelector('.element-item').innerHTML;
+                this.content = this.$el.querySelector('.ishow-elementItem').innerHTML;
             }
 
         }

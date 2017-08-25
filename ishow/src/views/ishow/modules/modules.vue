@@ -1,6 +1,6 @@
 <template>
-    <div class="left-container mt5">
-        <div class="modules-wrapper">
+    <div class="ishow-leftContainer mt5">
+        <div class="ishow-modulesWrapper">
             <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="模版管理" name="first">
                     <el-input placeholder="请输入内容齐全" icon="search" v-model="input2" :on-icon-click="handleIconClick"></el-input>

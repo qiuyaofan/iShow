@@ -2966,8 +2966,8 @@
             $.each($this, function (index, el) {
                 for (var i = 0; i < attr.length; i++) {
                     temp = $(el).attr(attr[i]);
-                    if (temp && temp.indexOf('{{path}}') != -1) {
-                        temp = temp.replace(/{{path}}/ig, basepath);
+                    if (temp) {
+                        temp = basepath+temp;
                         $(el).attr(attr[i], temp);
                     }
                 }

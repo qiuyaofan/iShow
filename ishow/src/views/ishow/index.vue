@@ -2,7 +2,7 @@
 <template>
     <div>
         <!-- 导航栏 -->
-        <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="renderJson" :page="page"></main-header>
+        <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="renderJson" :page="page" :h5-json="h5Json"></main-header>
         <div class="main v-global" @click="toggerActive">
             <!-- 模版 -->
             <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules>
@@ -52,7 +52,8 @@ export default {
                 initJson: this.parseJson(appJson.initJsons),
                 initPage: this.parseJson(appJson.initPage),
                 histroyJson:[],
-                ref:{}
+                ref:{},
+                h5Json:{}
             }
         },
         components: {
@@ -67,8 +68,6 @@ export default {
             this.pageJson = this.parseJson(showJsons);
             //设置活动id,编辑状态
             const id=this.$route.query.activityId||'';
-            
-            console.info('id',id)
             if(id){
                 this.$store.commit('SET_ACTIVITYID', id);
                 this.fetchPageJson();
@@ -80,7 +79,6 @@ export default {
 
         methods: {
             init(json) {
-                console.info('json',json)
                 //设置总json
                 // this.pageJson = this.parseJson(json);
                 //设置showJson
@@ -106,22 +104,14 @@ export default {
                 });
             },
             addEvent() {
-                //拖拽改变大小
-                // bus.$on('drap-size-update', function(w, h, t, l) {
-                //     console.info(w, h, t, l)
-                //     this.$refs.show.$refs.template[0].drapUpdate(w, h, t, l);
-                // }.bind(this));
-                //预览动画修播放效果
-                // bus.$on('animate-preview', function() {
-                //     this.$refs.show.$refs.template[0].playAnimate(false);
-                // }.bind(this));
-                // //动画修改播放效果
-                // bus.$on('animate-change', function(index) {
-                //     this.$refs.show.$refs.template[0].animateChange(index);
-                // }.bind(this));
                 //文字 更改元素大小
                 bus.$on('show-text-resize', function(isResize) {
                     this.$refs.show.$refs.template[0].resize(isResize);
+                }.bind(this));
+
+                //更新整个h5属性
+                bus.$on('update-h5Json', function(data) {
+                    this.h5Json=Object.assign({},this.h5Json,data);
                 }.bind(this));
                
                 //更新renderJson
@@ -231,7 +221,7 @@ export default {
                     this.histroyJson.push(json);
                     len=len+1;
                     let min=len-10<0?0:len-10;
-                    if(len>=10){
+                    if(len>=40){
                         this.histroyJson=this.parseJson(this.histroyJson.slice(min,len));
                     }
                 }.bind(this));
@@ -259,12 +249,10 @@ export default {
                 //     console.info(json)
                 //     this.$refs.editor.toggleBgEditor(isActive,json);
                 // }.bind(this));
-
             },
             //切换显示背景编辑器
             bgEditorToggle(isActive) {
                 let json=this.parseJson(this.pageJson[this.page-1].bgImage);
-                console.info(json)
                 this.$refs.editor.toggleBgEditor(isActive,json);
             },
             //添加page
@@ -286,20 +274,15 @@ export default {
                 this.pageJson=jsons;
             },
             updateMethod(data) {
-                // console.info('data',data)
-                // console.info('renderJson',this.renderJson)
-                // console.info('renderJson',this.renderJson!=data)
                 if (data && this.renderJson !== data) {
                     this.renderJson = JSON.parse(JSON.stringify(data));
                     this.showJson = this.converShowJson(data);
-                    //console.info('renderJson22',data);
                 }
             },
             getPageJson() {
                 for (var i = 0; i < this.pageJson.length; i++) {
                     if (this.pageJson[i].page === this.page) {
                         this.showJson = this.pageJson[i].json;
-                        console.info('this.showJson',this.showJson)
                         return this.pageJson[i].json;
                     }
                 }

@@ -1,9 +1,9 @@
 <template>
-    <div class="animate-editor_main">
+    <div class="ishow-animateEditor--main">
         <el-collapse v-model="activeNames">
             <el-collapse-item :name="'ani'+(index+1)" v-for="(aniJson, index) in animateJson" :key="index">
             	<template slot="title" v-if='aniJson'>
-		            动画 {{index+1}} <i class="animate-editor_close el-icon-close" @click.stop="removeAnimate(index)"></i>
+		            动画 {{index+1}} <i class="ishow-animateEditor--close el-icon-close" @click.stop="removeAnimate(index)"></i>
 		        </template>
                 <animateSingle v-if='aniJson' :aniJson="aniJson" :render-json="renderJson" :show-id="showId" :aniIndex="index"></animateSingle>
             </el-collapse-item>

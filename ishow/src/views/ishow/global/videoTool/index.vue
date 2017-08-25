@@ -1,12 +1,12 @@
 <template>
     <!-- type:picCrop,pic,bg -->
-    <div class="picTool-main">
+    <div class="ishow-picToolMain">
          <slot></slot> 
         <!-- 图片素材 -->
-        <!-- <pic-layer :pic-json="jsonData" ref="picLayer"></pic-layer> -->
+        <!-- <pic-layer :pic-json="jsonData" ref="videoLayer"></pic-layer> -->
         <div v-if="isOpen" style="line-height:1;">
-            <el-dialog :title="title+'素材'" v-model="dialogVisible" size="small-1000" :before-close="closePicLayer">
-                <list-layer :json-data="jsonData" ref="picLayer" :is-bg="isBg" :type="type" :isLoading="isLoading"></list-layer>
+            <el-dialog :title="title+'素材'" v-model="dialogVisible" size="small-1000" :before-close="closeVideoLayer">
+                <list-layer :json-data="jsonData" ref="videoLayer" :is-bg="isBg" :type="type" :isLoading="isLoading"></list-layer>
             </el-dialog>
 
             <el-dialog :title="'预览'+title" v-model="dialogVisible2" size="small-700" top="3%">
@@ -57,9 +57,7 @@ export default {
             'type':{
                 type: String,
             },
-            'jsonData':{
-                type: Array,
-            },
+            'jsonData':{},
             //选择图片回调
             'addElement': {
                 type: Function,
@@ -122,12 +120,12 @@ export default {
             }, 
             //预览使用图片
             addPic() {
-                this.$refs.picLayer.confirmPic(this.previewPicSrc);
+                this.$refs.videoLayer.confirmPic(this.previewPicSrc);
                 this.dialogVisible2=false;
             },
             //关闭图片弹层
-            closePicLayer() {
-                this.$refs.picLayer.closeLayer();
+            closeVideoLayer() {
+                this.$refs.videoLayer.closeLayer();
             },
      
             //添加图片元素

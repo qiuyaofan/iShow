@@ -1,5 +1,5 @@
 <template>
-    <div class="element-wrapper dragged" v-bind:class="{ active:isActive , 'element-wrapper--auto':isAuto}" v-bind:id="id" v-bind:ctype="type" @click.stop="" :style="{
+    <div class="ishow-elementWrapper dragged" v-bind:class="{ active:isActive , 'ishow-elementWrapper--auto':isAuto}" v-bind:id="id" v-bind:ctype="type" @click.stop="" :style="{
             top: cursorTop + 'px',
             left: cursorLeft + 'px',
             width: elWidth + 'px',
@@ -8,20 +8,20 @@
             transform:'rotate('+rotate+'deg)',
         }">
         <!-- 普通文本 -->
-        <div v-if="type===1" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===1" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_text element-item_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)" v-html="content" v-show="!typewriter.isActive" :style="{
+                <div class="ishow-elementItem ishow-elementItem_text ishow-elementItem_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)" v-html="content" v-show="!typewriter.isActive" :style="{
                   minHeight: resizeH
                 }">
                 </div>
-                <div class="element-item element-item_text" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)" v-html="typewriter.content" v-show="typewriter.isActive"></div>
+                <div class="ishow-elementItem ishow-elementItem_text" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)" v-html="typewriter.content" v-show="typewriter.isActive"></div>
             </div>
         </div>
         <!-- 图片 -->
-        <div v-if="type===2" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===2" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
-                    <img :src="content" alt="" class="element-item_img element-item_drap" :style="{
+                <div class="ishow-elementItem" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <img :src="content" alt="" class="ishow-elementItem_img ishow-elementItem_drap" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -29,10 +29,10 @@
             </div>
         </div>
         <!-- 输入框 -->
-        <div v-if="type===3" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===3" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
-                    <textarea :name="json.form.name" :placeholder="json.form.cname" class="element-item_textarea" :style="{
+                <div class="ishow-elementItem ishow-elementItem_drap" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <textarea :name="json.form.name" :placeholder="json.form.cname" class="ishow-elementItem_textarea" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -41,10 +41,10 @@
             </div>
         </div>
         <!-- 单选 -->
-        <div v-if="type===4" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===4" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_radio tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
-                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_radio tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <div class="ishow-elementItem_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
                     <el-radio-group v-model="radio1" :class="{vertical:json.form.dire==='v'}">
                         <el-radio v-for="(radioItem, index) in json.form.options" :label="radioItem.id" :key="radioItem.id">{{radioItem}}</el-radio>
                     </el-radio-group>
@@ -52,10 +52,10 @@
             </div>
         </div>
         <!-- 多选 -->
-        <div v-if="type===5" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===5" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_checkbox tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
-                    <div class="element-item_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_checkbox tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <div class="ishow-elementItem_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
                     <el-checkbox-group v-model="checkbox1" :class="{vertical:json.form.dire==='v'}">
                         <el-checkbox v-for="(radioItem2, index2) in json.form.options" :label="radioItem2.id" :key="radioItem2.id">{{radioItem2}}</el-checkbox>
                     </el-checkbox-group>
@@ -63,9 +63,9 @@
             </div>
         </div>
         <!-- 下拉框 -->
-        <div v-if="type===6" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===6" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_select tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_select tl" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
                     <el-select :value="json.form.options[json.form.selectedVal]" :style="{'font-size':json.text.fontSize+'px'}">
                         <el-option v-for="(selectItem,selectIndex) in json.form.options" :key="selectIndex" :label="selectItem" :value="selectIndex">
                         </el-option>
@@ -74,10 +74,10 @@
             </div>
         </div>
         <!-- 按钮 -->
-        <div v-if="type===7" v-bind:style="[textJson,animateJson,modifyData]" class="element-wrapper_main">
+        <div v-if="type===7" v-bind:style="[textJson,animateJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item element-item_drap element-item_button tc" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
-                    <a class="element-item_button_a" :href="json.form.link" :style="{
+                <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_button tc" @click.stop="selectElement()" @contextmenu.prevent="rightClick($event)">
+                    <a class="ishow-elementItem_button_a" :href="json.form.link" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px',
                     'line-height':elHeight + 'px',
@@ -562,7 +562,7 @@ export default {
         // },
         mounted() {
             //绑定结束事件
-            let target = this.$el.querySelector('.element-wrapper_main');
+            let target = this.$el.querySelector('.ishow-elementWrapper_main');
             this.addAnimateEnd(target);
             this.initJson();
 
@@ -583,7 +583,7 @@ export default {
                 },
                 stop:(event,element) =>{
                     //判断是右键点击或者不是可拖拽元素就不拖
-                    if(element!==event.target&&event.target.className.indexOf('element-item_drap')===-1){
+                    if(element!==event.target&&event.target.className.indexOf('ishow-elementItem_drap')===-1){
                       return false;
                     }
                     if(event.button===2){

@@ -95,7 +95,6 @@ export default {
                     this.loading = true;
                     //let loginParams = Object.assign({}, this.loginForm, this.$route.query);
                     this.$store.dispatch('LoginByEmail', this.loginForm).then(() => {
-                        console.info(44444)
                         this.loading = false;
                         this.$router.push({ path: '/' });
                         // this.showDialog = true;

@@ -83,7 +83,7 @@ export default {
                 };
                 json.ratio=json.w / json.h;
                 //获取坐标
-                console.info('move',i)
+                //console.info('move',i)
                 movePos[i](this,json);
                 this.handleSize(true);
                 this.$parent.drapSizeUpdate(this.width, this.height, this.top, this.left);

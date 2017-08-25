@@ -61,7 +61,6 @@ const user = {
       state.user = '';
     },
     SET_ACTIVITYID: (state, id) => {
-      console.info(id)
       state.activityId = id;
     }
   },
@@ -74,7 +73,6 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByEmail(loginName, userInfo.password).then(response => {
           const data = response.data;
-          console.info(data)
           Cookies.set('X-Ivanka-Token', data.token);
           commit('SET_TOKEN', data.token);
           commit('SET_EMAIL', loginName);
@@ -90,7 +88,6 @@ const user = {
       return new Promise((resolve, reject) => {
         verifyToken(loginName, userInfo.password).then(response => {
           const data = response.data;
-          console.info(data)
           Cookies.set('X-Ivanka-Token', data.token);
           commit('SET_TOKEN', data.token);
           commit('SET_EMAIL', loginName);

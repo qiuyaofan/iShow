@@ -96,7 +96,6 @@ export default {
         },
         watch: { 
             croodUrl(val) {
-                console.info(3333,val)
                 this.url = val;
                 this.setSize();
             }

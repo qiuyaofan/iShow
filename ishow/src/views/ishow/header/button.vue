@@ -1,5 +1,5 @@
 <template>
-    <div class="header-btn">
+    <div class="ishow-headerBtn">
         <el-button size="small" @click.stop="setting">设置</el-button>
         <el-button size="small" @click.stop="publish(2)">保存为模版</el-button>
         <el-button size="small" @click.stop="publish(1)">保存h5</el-button>
@@ -24,7 +24,7 @@ export default {
                 show:true
             };
         },
-        props: ['showJson', 'pageJson','page'],
+        props: ['showJson', 'pageJson','page','h5Json'],
         created() {
             //console.info(this.showJson)
             //this.resultJson=this.parseJson(this.pageJson);
@@ -37,6 +37,7 @@ export default {
             //发布提交
             fetchPublish(data,type) {
                 data=JSON.stringify(data);
+                console.info('json',JSON.stringify(this.resultJson));
                 let json={
                     data,
                     type
@@ -54,10 +55,8 @@ export default {
             },
             publish(type) {
                 //this.getBase64Image(document.querySelector('#img-eeee'));
-                
-                console.info(JSON.stringify(this.pageJson));
                 // type=type?type:1;
-                
+                let json={};
                 this.resultJson=this.parseJson(this.pageJson);
                 const len=this.resultJson.length;
                 let temp;
@@ -79,6 +78,7 @@ export default {
                             //处理表单默认值
                             if(form.default===false){
                                 form.name=pinyin(form.cname, pinyinOptions).join('');
+                                console.info('form-name',form)
                             }
                         }
                         if(animate.length){
@@ -98,7 +98,9 @@ export default {
                 //     data:this.resultJson,
                 //     type:type
                 // };
-                this.fetchPublish(this.resultJson,type);
+                json.page=this.parseJson(this.resultJson);
+                json.setting=this.h5Json;
+                this.fetchPublish(json,type);
 
                 //this.html2canvasTool();
                 //console.info(JSON.stringify(this.resultJson,type))
@@ -114,7 +116,7 @@ export default {
             },
             html2canvasTool() {
                 let _this=this;
-                let downloadCanvas = document.querySelector('.left-container .preview-page');
+                let downloadCanvas = document.querySelector('.ishow-leftContainer .preview-page');
                 console.info('downloadCanvas[0]',downloadCanvas)
                 //调用html2canvas
                 html2canvas(downloadCanvas).then(function(canvas) {

@@ -24,34 +24,34 @@
                         <el-button type="primary" size="small" @click="back"><i class="fa fa-reply" aria-hidden="true"></i> 取消管理</el-button>
                     </div>
                 </div>
-                <div class="layer-main_box">
+                <div class="layer-main_box layer-main_box--xs">
                     <div v-if="!isLoading">
-                        <div v-for="(item,index) in json" class="layer-main_item" :class="{ 'selected': isActive[index]}" :style="{ 'background-image': 'url(' + item + ')' }" :data-url="item"  @mouseover="picHover(index,true)" @mouseout="picHover(index,false)">
-                            
-                            <div v-show="isHover[index]" class="layer-main_item--pic">
-                                <div class="tc">
-                                    <el-button type="primary" @click="addElement(item,index)" class="mt20">
-                                        <span v-if="isActive[index]">取消</span>
-                                        <span v-else>选择</span>
-                                    </el-button>
-                                </div>
-                                <div class="tc">
-                                    <el-button @click="preview(item,index)" class="mt5" size="small"><i class="fa fa-eye" aria-hidden="true"></i>播放</el-button>
+                        <div class="c-list1">
+                            <div class="c-list1--row" v-for="(item,index) in json" @click.stop="toggerSelect(item,index)">
+                                {{item.name}}
+                                <div class="c-list1--layout" @click.stop="toggerPlay(item.url,index)">
+                                    <i  class="fa fa-lg fa-play-circle c-font--default mr10" aria-hidden="true" :class="{'fa-pause-circle':audioPlayList['isActive'+index]}"  @click.stop="toggerPlay(item.url,index)"></i>
+                                    <i class="fa fa-times-circle fa-lg c-font--default" aria-hidden="true" @click.stop="deleteFn(item,index)"></i>
+                                    <!-- <i  class="fa fa-lg fa-play-circle c-font--default" aria-hidden="true" v-else></i> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div v-else class="tc"><i class="el-icon-loading"></i> 正在加载{{title}}，请稍后...</div>
                 </div>
-                
+                <div style="height:16px;">
+                    <div v-show="audioSelectItem.name">已选择：<span class="bold">{{audioSelectItem.name}}</span>&nbsp;&nbsp;<i class="fa fa-times-circle fa-lg c-font--default" aria-hidden="true" @click="audioSelectItem=''"></i></div>
+                </div>
             </div>
             <div class="layer-main_footer">
-                <!-- <el-button @click="closeLayer">取 消</el-button> -->
-                <el-button type="primary" @click="closeLayer">返回</el-button>
+                <el-button @click="closeLayer">返回</el-button>
+                <el-button type="primary" @click="confirmAudio">确定</el-button>
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-size="18" layout="total, prev, pager, next, jumper" :total="400">
                 </el-pagination>
             </div>
         </div>
+        <audio :src="audioUrl" controls autoplay loop v-show="false" @oncanplay="oncanplay">
+        </audio>    
     </div>
 </template>
 <script>
@@ -75,7 +75,14 @@ export default {
             uploadUrl: "",
             isManage:false,
             isActive:[],
-            isHover:[]
+            isHover:[],
+            audio:'',
+            isAudioPlay:false,
+            audioUrl:'',
+            audioPlayIndex:'',
+            audioList:{},
+            audioPlayList:{},
+            audioSelectItem:''
         };
     },
     props: ["jsonData","isBg","type","isLoading"],
@@ -95,15 +102,68 @@ export default {
             deep: true
         },
     },
+    mounted() {
+        this.audio=this.$el.querySelector('audio');
+    },
     methods: {
+        //添加音乐
+        confirmAudio() {
+            bus.$emit('update-h5Json',{
+                bgMusic:this.audioSelectItem
+            });
+            this.closeLayer();
+        },
+         //选择音乐
+        toggerSelect(item,index) {
+            this.audioSelectItem=item;
+            console.info(item,index)
+        },
+        //加载完成
+        oncanplay() {
+            this.audioUrl=url;
+            this.audio.play();
+        },
+        //切换播放状态
+        toggerPlay(url,index) {
+            this.isAudioPlay=!this.isAudioPlay;
+            let temp=this.parseJson(this.audioPlayList);
+            temp['isActive'+this.audioPlayIndex]=false;
+            temp['isActive'+index]=this.isAudioPlay;
+            this.audioPlayList=temp;
+            this.audioPlayIndex=index;
+            if(this.isAudioPlay){
+                //已存在，不需要重新load
+                if(this.audioUrl===url){
+                    this.audio.play();
+                    return;
+                }
+                //不一样，load
+                this.audioUrl=url;
+                return;
+            }
+            //暂停
+            this.audio.pause();
+        },
         //设置loading
         // isLoading(isLoading) {
         //     this.loading=isLoading;
         // },
         setInput() {
-            this.json=this.parseJson(this.jsonData);
-            this.isActive.length=this.jsonData.length;
-            this.isHover.length=this.jsonData.length;
+            this.json=this.parseJson(this.changeToArray(this.jsonData));
+            this.isActive.length=this.json.length;
+            this.isHover.length=this.json.length;
+        },
+        //json key 值返回
+        changeToArray(json) {
+            let url,
+                result = [];
+            for (url in json) {
+                result.push({
+                    url:url,
+                    name:json[url]
+                });
+            }
+            return result;
         },
         picHover(index,status) {
             this.isHover.splice(index,1,status);
@@ -122,19 +182,9 @@ export default {
          
         },
         //删除图片
-        deleteFn() {
-            let len= this.isActive.length;
-            let result=[];
-            for (let i = 0; i < len; i++) {
-                if(this.isActive[i]===true){
-                    result.push(this.json[i]);
-                }
-            }
-            if(!result.length){
-                this.$message.error('请先选择图片哦');
-                return false;
-            }
-            this.fetchDeletePic(result);
+        deleteFn(item,index) {
+            this.fetchDeletePic([item.url]);
+            this.json.splice(index,1);
         },
         //清空
         clear (){
@@ -204,18 +254,21 @@ export default {
         },
         //上传中
         uploadImgProgress(event, file, fileList) {
+            console.info('file11',file,fileList)
             let target=document.querySelector('.layer-main_box');
             for (var i = 0; i < fileList.length; i++) {
-                this.json.push(loadingUrl);
+                this.json.push({url:loadingUrl,name:'上传中...'});
                 //滚动到底部
                 target.scrollTop=target.scrollHeight-target.offsetHeight;
             }
         },
         //上传图片成功
         uploadImgSuccess(response, file, fileList) {
-            var data = this.mapJson(response.data).key[0];
+            console.info('file',file,fileList,response.data)
+            var data = {url:this.mapJson(response.data).key[0],name:file.name};
             for (var i = 0; i < this.json.length; i++) {
-                if (this.json[i] === loadingUrl) {
+                console.info(this.json[i].url,loadingUrl)
+                if (this.json[i].url === loadingUrl) {
                     this.json.splice(i, 1, data);
                     return false;
                 }

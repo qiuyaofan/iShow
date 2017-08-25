@@ -39,60 +39,67 @@
             3534546456
         </div> -->
     </div>
+    <div class="music"></div>
     <script type="text/html" id="tpl-1">
         {{each page value i}}
-        <div class="swiper-slide">
+        <div class="swiper-slide" style="background:{{value.bg.backgroundColor}} url({{value.bg.url}}) center center / cover no-repeat;">
             <div class="page J-page">
                 <div class="page-content">
+                    {{if value.hasForm}}
+                    <form action="/actsubmitrest/testformSubmit" class="J-path J-form">
+                    {{/if}}
                     {{each value.list item j}}
                         <div style="{{item.style}}" id="{{item.id}}" class="page-item">
-                        {{if item.type===1}}
-                        <div class="item-text">{{@item.content}}</div>
-                        {{else if item.type===2}}
-                            <img src="{{item.content}}" alt="" width="100%" height="100%">
-                        {{else if item.type===3}}
-                            <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
-                        {{else if item.type===4}}
-                            <div class="item-box">
-                                <div class="item-box_title" style="background-color:{{item.theme}};">
-                                    {{item.form.cname}}
+                            {{if item.type===1}}
+                            <div class="item-text">{{@item.content}}</div>
+                            {{else if item.type===2}}
+                                <img src="{{item.content}}" alt="" width="100%" height="100%">
+                            {{else if item.type===3}}
+                                <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
+                            {{else if item.type===4}}
+                                <div class="item-box">
+                                    <div class="item-box_title" style="background-color:{{item.theme}};">
+                                        {{item.form.cname}}
+                                    </div>
+                                    {{if item.form.dire==='v'}}
+                                    <div class="item-box_radio vertical">
+                                    {{else}}
+                                    <div class="item-box_radio">
+                                    {{/if}}
+                                        {{each item.form.options option k}}
+                                        <label>
+                                            <input type="radio" name="{{item.form.cname}}" value="{{option}}">{{option}}
+                                        </label>
+                                        {{/each}}
+                                    </div>
                                 </div>
-                                {{if item.form.dire==='v'}}
-                                <div class="item-box_radio vertical">
-                                {{else}}
-                                <div class="item-box_radio">
-                                {{/if}}
-                                    {{each item.form.options option k}}
-                                    <label>
-                                        <input type="radio" name="">{{option}}
-                                    </label>
-                                    {{/each}}
+                            {{else if item.type===5}}
+                                <div class="item-box">
+                                    <div class="item-box_title" style="background-color:{{item.theme}};">
+                                        {{item.form.cname}}
+                                    </div>
+                                    {{if item.form.dire==='v'}}
+                                    <div class="item-box_checkbox vertical">
+                                    {{else}}
+                                    <div class="item-box_checkbox">
+                                    {{/if}}
+                                        {{each item.form.options option k}}
+                                        <label>
+                                            <input type="checkbox" name="{{item.form.cname}}" value="{{option}}">{{option}}
+                                        </label>
+                                        {{/each}}
+                                    </div>
                                 </div>
-                            </div>
-                        {{else if item.type===5}}
-                            <div class="item-box">
-                                <div class="item-box_title" style="background-color:{{item.theme}};">
-                                    {{item.form.cname}}
-                                </div>
-                                {{if item.form.dire==='v'}}
-                                <div class="item-box_checkbox vertical">
-                                {{else}}
-                                <div class="item-box_checkbox">
-                                {{/if}}
-                                    {{each item.form.options option k}}
-                                    <label>
-                                        <input type="checkbox" name="">{{option}}
-                                    </label>
-                                    {{/each}}
-                                </div>
-                            </div>
-                        {{else if item.type===6}}
-                            <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
-                        {{else if item.type===7}}
-                            <a href="" class="item-button" style="line-height: {{item.json.height | px}}; color: {{item.json.text.color}};">提交</a>
-                        {{/if}}
+                            {{else if item.type===6}}
+                                <textarea name="{{item.form.name}}" placeholder="{{item.form.cname}}" id="" class="item-textarea"></textarea>
+                            {{else if item.type===7}}
+                                <a href="javascript:;" class="item-button J-submit" style="line-height: {{item.json.height | px}}; color: {{item.json.text.color}};">提交</a>
+                            {{/if}}
                         </div>
                     {{/each}}
+                    {{if value.hasForm}}
+                    </form>
+                    {{/if}}
                 </div>
             </div>
         </div>

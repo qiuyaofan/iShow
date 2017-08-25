@@ -1,7 +1,7 @@
 <template>
-    <div class="modules-content">
-          <div class="preview-main--module" v-for="json in moduleJson" @click="confirmOpen(json)">
-            <div class="preview-page" :style="getBackground">
+    <div class="ishow-modulesContent">
+          <div class="ishow-previewMain--module" v-for="json in moduleJson" @click="confirmOpen(json)">
+            <div class="ishow-previewPage" :style="getBackground">
                 <normalElement v-for="item in json.json" :key="item.id" :child-json="item" :show-json="json.json" :type="item.type">
                 </normalElement>
             </div>
@@ -63,6 +63,7 @@ export default {
             json=json.moduleJson[0];
             json.page=this.page;
             bus.$emit('update-pageJson', json);
+            bus.$emit('add-histroy');
         }
     }
 };

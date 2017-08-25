@@ -86,24 +86,22 @@ export function fetchToken(options) {
     instance(options)
     .then(response => {
       const res = response.data;
-      resolve(res);
-      // if (res.code === 40001) {
-      //   // 登出
-      //   store.dispatch('FedLogOut').then(() => {
-      //     router.push({ path: '/login' })
-      //   });
-      // } else if (res.code !== 200) {
-      //   console.info(8888)
-      //   Message({
-      //     message: res.msg,
-      //     type: 'error',
-      //     duration: 5 * 1000
-      //   });
-      //   reject(res);
-      // } else {
-      //   console.info(33333222)
-      //   resolve(res);
-      // }
+      //resolve(res);
+      if (res.code === 40001) {
+        // 登出
+        store.dispatch('FedLogOut').then(() => {
+          router.push({ path: '/login' })
+        });
+      } else if (res.code !== 200) {
+        Message({
+          message: res.msg,
+          type: 'error',
+          duration: 5 * 1000
+        });
+        reject(res);
+      } else {
+        resolve(res);
+      }
     })
     .catch(error => {
       Message({

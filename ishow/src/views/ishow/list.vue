@@ -1,10 +1,10 @@
 <!-- <meta name="viewport" id="viewport" content="width=320, initial-scale=1.2875, maximum-scale=1.2875, user-scalable=no"> -->
 <template>
     <div>
-        <div class="header-wrapper">
+        <div class="ishow-headerWrapper">
             <header class="header">
                 iShow
-                <div class="header-btn">
+                <div class="ishow-headerBtn">
                     <el-button size="small" @click.stop="linkNewSence">新建场景</el-button>
                 </div>
             </header>

@@ -1,5 +1,5 @@
 <template>
-    <div class="element-wrapper dragged" v-bind:class="{ active:isActive }" v-bind:id="showId" v-bind:ctype="type" @click.stop="" :style="{
+    <div class="ishow-elementWrapper dragged" v-bind:class="{ active:isActive }" v-bind:id="showId" v-bind:ctype="type" @click.stop="" :style="{
           top: cursorTop + 'px',
           left: cursorLeft + 'px',
           width: elWidth + 'px',
@@ -7,10 +7,10 @@
           transform:'rotate('+rotate+'deg)',
           zIndex:zIndex
         }">
-        <div v-bind:style="[textJson,modifyData]" class="element-wrapper_main">
+        <div v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
-                <div class="element-item" @click.stop="selectElement">
-                    <img :src="content" alt="" class="element-item_img element-item_drap" :style="{
+                <div class="ishow-elementItem" @click.stop="selectElement">
+                    <img :src="content" alt="" class="ishow-elementItem_img ishow-elementItem_drap" :style="{
                     width: elWidth + 'px',
                     height: elHeight + 'px'
                   }">
@@ -95,7 +95,7 @@ export default {
                     this.triggerApp();
                 }
                 if (this.elHeight === 'auto') {
-                    let rect = this.$el.querySelector('.element-item_drap').getBoundingClientRect();
+                    let rect = this.$el.querySelector('.ishow-elementItem_drap').getBoundingClientRect();
                     this.elHeight = rect.height * this.elWidth / rect.width;
                     this.triggerApp();
                 }

@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div>
-                <el-button class="p-editor--btn" size="small" @click="changeThemecolorAll">主题色应用到所有表单</el-button>
+                <el-button class="ishow-editorBtn" size="small" @click="changeThemecolorAll">主题色应用到所有表单</el-button>
             </div>
         </div>
         <div class="form-group">
