@@ -7,7 +7,7 @@ const userMap = {
     '//note.youdao.com/yws/api/group/7193078/noteresource/2DD074F9926F4F2194F16D9A9232E996/version/22?method=get-resource': 'bg.jpg'
   },
   getVideoList: {
-    'https://img.kxz.com/assets/kxz/cab-game_20170316/sprite/sprite-1.png': 'demo1-6.jpeg', 'https://img.kxz.com/assets/kxz/cab-game_20170316/sprite-logo/sprite.png': '7.pic.jpg'
+    'https://img.kxz.com/assets/kxz/ishow-20170908/game_music.mp3': 'demo1-6.jpeg', 'https://img.kxz.com/assets/kxz/ishow-20170908/game_music.mp3': '7.pic.jpg'
   },
   getAudioList: {
     'https://img.kxz.com/assets/kxz/cab-game_20170316/sprite/sprite-1.png': 'demo1-6.jpeg', 'https://img.kxz.com/assets/kxz/cab-game_20170316/sprite-logo/sprite.png': '7.pic.jpg'

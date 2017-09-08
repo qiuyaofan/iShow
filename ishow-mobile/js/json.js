@@ -955,7 +955,7 @@ var GLOBALPAGEJSON={
     ],
     "setting": {
         "bgMusic": {
-            "url": "ttp://192.168.1.100:8080/uploadfile/3/15/5/8765a93f-351e-4984-8a03-6ef746ea36fd_bg.mp3",
+            "url": "https://img.kxz.com/assets/kxz/ishow-20170908/game_music.mp3",
             "name": "enemy2_down.mp3"
         }
     }

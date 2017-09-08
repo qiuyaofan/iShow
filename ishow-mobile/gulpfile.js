@@ -104,9 +104,9 @@ gulp.task('browser-sync', function() {
         server: {
             baseDir: "./"
         },
-        port: 2000,
+        port: 9910,
         weinre: {
-            port: 2000
+            port: 9910
         },
         open: false
 

@@ -11,7 +11,7 @@
 <script>
 import html2canvas from 'assets/js/html2canvas/html2canvas';
 import bus from 'views/ishow/js/bus';
-import pinyin from "pinyin";
+import pinyin from "vendor/pinyin/web-pinyin";
 import {postH5Page} from 'api/ishow';
 const pinyinOptions={
   style: pinyin.STYLE_NORMAL
@@ -77,7 +77,7 @@ export default {
                             }
                             //处理表单默认值
                             if(form.default===false){
-                                form.name=pinyin(form.cname, pinyinOptions).join('');
+                                form.name=pinyin(form.cname).join('');
                                 console.info('form-name',form)
                             }
                         }

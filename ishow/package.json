@@ -10,9 +10,7 @@
     "build:prod": "NODE_ENV=production node build/build.js",
     "build:sit": "NODE_ENV=sit node build/build.js",
     "build:sit-preview": "NODE_ENV=sit npm_config_preview=true  npm_config_report=true node build/build.js",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "0.15.3",
@@ -36,7 +34,7 @@
     "vue-router": "2.3.0",
     "vuedraggable": "2.8.4",
     "vuex": "2.2.1",
-    "xlsx": "0.8.1"
+    "xlsx": "^0.10.9"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",

@@ -21,7 +21,7 @@ import 'vue-multiselect/dist/vue-multiselect.min.css';
 import vueWaves from './directive/waves';
 import vueSticky from './directive/sticky';
 import errLog from 'store/errLog';
-// import './mock/index.js';
+import './mock/index.js';
 import 'assets/sass/style.scss';
 // import './styles/mixin.scss';
 
