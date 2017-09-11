@@ -116,7 +116,7 @@ export default {
             },
             setPos(event) {
                 let el = this.$el;
-                let screen = document.getElementsByClassName('screen')[0].getBoundingClientRect();
+                let screen = document.getElementsByClassName('ishow-screen')[0].getBoundingClientRect();
                 //let target = this.$el.querySelector(dragEle[i]);
                 let rect = el.getBoundingClientRect();
                

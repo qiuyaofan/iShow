@@ -58,7 +58,7 @@ export default {
             //拖拽更新位置
             handleDrag(event, i) {
                 const el = this.$el;
-                const screen = document.getElementsByClassName('screen')[0].getBoundingClientRect();
+                const screen = document.getElementsByClassName('ishow-screen')[0].getBoundingClientRect();
                 const target = this.$el.querySelector(dragEle[i]);
                 const rect = el.getBoundingClientRect();
                 let width, height, left, top;
