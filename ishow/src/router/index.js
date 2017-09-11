@@ -17,7 +17,7 @@ import Login from '../views/login/';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history', // 后端支持可开
+  // mode: 'history', // 后端支持可开
   // history: true,
   scrollBehavior: () => ({ y: 0 }),
   routes: [
