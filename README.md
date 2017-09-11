@@ -23,11 +23,11 @@ Now, the editor is still missing a lot of ways, the phone side has not finished,
 
 ![ishow](https://note.youdao.com/yws/api/group/7193078/noteresource/E00E381E8D1F4AEDB969339679315E28/version/28?method=get-resource&shareToken=668A129724ED4966804FBF3F174EC812&entryId=158676252 "ishow")
 
-###json渲染的手机端示例（iphone6为例）
+### json渲染的手机端示例（iphone6为例）
 
 ![ishow](https://img.kxz.com/assets/kxz/ishow-20170908/mobile.png "ishow")
 
-###ishow编辑器的主要功能如下：
+### ishow编辑器的主要功能如下：
 
 ```
 ishow v1.0功能列表
@@ -124,7 +124,7 @@ gulp watch
 http://localhost:9910/view/wap.html
 ```
 
-###ishow调用的外部插件
+### ishow调用的外部插件
 
 IUI组件部分
 
@@ -134,11 +134,11 @@ swiper：[http://www.swiper.com.cn/api/index.html](#http://www.swiper.com.cn/api
 
 参考的开源架子：[https://github.com/PanJiaChen/vue-element-admin](#https://github.com/PanJiaChen/vue-element-admin)
 
-###开发思路
+### 开发思路
 
 编辑器最终生成的是json配置，手机端通过json配置渲染出相应的样式，动画等。
 
-####mock.js切换
+#### mock.js切换
 
 目前编辑器是用mock实现模拟接口，如果需要换回自己的接口
 
