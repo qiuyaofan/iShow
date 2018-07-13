@@ -264,44 +264,8 @@ var json =[
               ],
               "id": 1501745670510,
               "zIndex": 1
-          },
-          {
-              "type": 2,
-              "content": "http://192.168.1.100:8080/uploadfile/1/4/8/a5526497-2f12-4473-9559-7989ea15f3c5_demo1-1.png",
-              "position": {
-                  "top": -32,
-                  "left": 266
-              },
-              "width": 110.30430947580645,
-              "height": 125,
-              "text": {
-                  "backgroundColor": "rgba(0,0,0,0)",
-                  "opacity": 100,
-                  "padding": 0,
-                  "rotate": 318,
-                  "borderWidth": 0,
-                  "borderRadius": 0,
-                  "borderStyle": "solid",
-                  "shadowColor": "rgba(204, 204, 204,1)",
-                  "shadowWidth": 0,
-                  "shadowRadius": 10,
-                  "shadowDire": 0,
-                  "borderColor": "rgba(204, 204, 204,1)"
-              },
-              "animate": [
-                  {
-                      "animationName": "fadeIn",
-                      "animationDuration": 2,
-                      "animationTimingFunction": "ease",
-                      "animationDelay": 0,
-                      "animationFillMode": "both",
-                      "animationPlayState": "initial",
-                      "isOut": false
-                  }
-              ],
-              "id": 1501745998167,
-              "zIndex": 8
           }
+          
       ],
       "bgImage": {
           "backgroundColor": "",
@@ -721,44 +685,8 @@ var GLOBALPAGEJSON={
                     ],
                     "id": 1501745670510,
                     "zIndex": 1
-                },
-                {
-                    "type": 2,
-                    "content": "http://192.168.1.100:8080/uploadfile/1/4/8/a5526497-2f12-4473-9559-7989ea15f3c5_demo1-1.png",
-                    "position": {
-                        "top": -32,
-                        "left": 266
-                    },
-                    "width": 110.30430947580645,
-                    "height": 125,
-                    "text": {
-                        "backgroundColor": "rgba(0,0,0,0)",
-                        "opacity": 100,
-                        "padding": 0,
-                        "rotate": 318,
-                        "borderWidth": 0,
-                        "borderRadius": 0,
-                        "borderStyle": "solid",
-                        "shadowColor": "rgba(204, 204, 204,1)",
-                        "shadowWidth": 0,
-                        "shadowRadius": 10,
-                        "shadowDire": 0,
-                        "borderColor": "rgba(204, 204, 204,1)"
-                    },
-                    "animate": [
-                        {
-                            "animationName": "fadeIn",
-                            "animationDuration": 2,
-                            "animationTimingFunction": "ease",
-                            "animationDelay": 0,
-                            "animationFillMode": "both",
-                            "animationPlayState": "initial",
-                            "isOut": false
-                        }
-                    ],
-                    "id": 1501745998167,
-                    "zIndex": 8
                 }
+               
             ],
             "bgImage": {
                 "backgroundColor": "",

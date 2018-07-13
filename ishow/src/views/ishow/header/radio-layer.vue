@@ -68,92 +68,90 @@
 <script>
 import bus from 'views/ishow/js/bus';
 const maxRadio = 8;
-let optionsRule=[{
-    required: true, message: '选项不能为空', trigger: 'blur' 
+const optionsRule = [{
+  required: true, message: '选项不能为空', trigger: 'blur'
 }];
 export default {
-    data() {
-            return {
-                json:this.parseJson(this.radioJson),
-                emptyLabel:'请选择',
-                selectDefaultVal:0
-            };
-        },
-        props: ['radioJson'],
-        created() {
-            this.setInput();
-            //this.$set(this.temp,"jobs",22);
-            console.info(this.json)
+  data() {
+    return {
+      json: this.parseJson(this.radioJson),
+      emptyLabel: '请选择',
+      selectDefaultVal: 0
+    };
+  },
+  props: ['radioJson'],
+  created() {
+    this.setInput();
+            // this.$set(this.temp,"jobs",22);
+    console.info(this.json)
+  },
+  watch: {
+    radioJson: {
+      handler(val) {
+        this.setInput();
+      },
+      deep: true
+    }
+  },
+  methods: {
+    setInput() {
+      this.json = this.parseJson(this.radioJson);
+    },
+            // 深拷贝
+    parseJson(json) {
+      return JSON.parse(JSON.stringify(json));
+    },
+            // 添加选项
+    addRadioJson(index) {
+      if (this.json.options.length >= maxRadio) {
+        return false;
+      }
+      this.json.options.splice(index + 1, 0, '');
+      setTimeout(() => {
+        this.scrollPos(index + 2);
+      }, 0)
+    },
+            // 删除选项
+    deleteRadioJson(index) {
+      this.json.options.splice(index, 1);
+    },
+            // 修改选项值
+    updateRadioJson(index, $event) {
+      this.json.options.splice(index, 1, $event);
+    },
+    moveRadioJson(start, end) {
+      if (start < 0 || end > this.json.options.length - 1) {
+        return false;
+      }
+      const json = this.parseJson(this.json.options);
+      const temp = json[start];
+      json[start] = json[end];
+      json[end] = temp;
+      this.json.options = json;
+    },
 
-        },
-        watch: {
-            radioJson:{
-                handler(val) {
-                    this.setInput();
-                },
-                deep: true
-            }
-        },        
-        methods: {
-            setInput() {
-                this.json=this.parseJson(this.radioJson);
-            },
-            //深拷贝
-            parseJson(json) {
-                return JSON.parse(JSON.stringify(json));
-            },
-            //添加选项
-            addRadioJson(index) {
-                if (this.json.options.length >= maxRadio) {
-                    return false;
-                }
-                this.json.options.splice(index + 1, 0, "");
-                setTimeout(function() {
-                    this.scrollPos(index + 2);
-                }.bind(this), 0)
-
-            },
-            //删除选项
-            deleteRadioJson(index) {
-                this.json.options.splice(index, 1);
-            },
-            //修改选项值
-            updateRadioJson(index, $event) {
-                this.json.options.splice(index, 1, $event);
-            },
-            moveRadioJson(start, end) {
-                if (start < 0 || end > this.json.options.length - 1) {
-                    return false;
-                }
-                let json = this.parseJson(this.json.options);
-                let temp = json[start];
-                json[start] = json[end];
-                json[end] = temp;
-                this.json.options = json;
-            },
-            
-            //滚动到底部
-            scrollPos(index) {
-                let box = this.$el.querySelector('.v-scrollBox');
-                let target = box.getElementsByClassName('form-textarea')[index];
-                let top = target.offsetTop + target.offsetHeight - box.offsetTop - box.offsetHeight;
-                box.scrollTop = top < 0 ? 0 : top;
-            },
-            submitForm(formName,type) {
-                this.$refs[formName].validate((valid) => {
-                  if (valid) {
-                    this.triggerApp(type);
-                  } else {
-                    return false;
-                  }
-                });
-            },
-            //同步父元素
-            triggerApp(type) {
-                this.$parent.$parent.confirmForm(this.json,type);
-               // bus.$emit('update-radio-layer',this.json,type);
-            }
-
+            // 滚动到底部
+    scrollPos(index) {
+      const box = this.$el.querySelector('.v-scrollBox');
+      const target = box.getElementsByClassName('form-textarea')[index];
+      const top = target.offsetTop + target.offsetHeight - box.offsetTop - box.offsetHeight;
+      box.scrollTop = top < 0 ? 0 : top;
+    },
+    submitForm(formName, type) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.triggerApp(type);
+        } else {
+          return false;
         }
+      });
+    },
+            // 同步父元素
+    triggerApp(type) {
+      this.$parent.$parent.confirmForm(this.json, type);
+               // bus.$emit('update-radio-layer',this.json,type);
+    }
+
+  }
 };
 </script>

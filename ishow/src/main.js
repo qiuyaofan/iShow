@@ -16,12 +16,13 @@ import 'components/Icon-svg/index';
 import 'assets/iconfont/iconfont';
 import * as filters from './filters';
 import Multiselect from 'vue-multiselect';
-// import Sticky from 'components/Sticky';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import vueWaves from './directive/waves';
 import vueSticky from './directive/sticky';
 import errLog from 'store/errLog';
 import './mock/index.js';
+// 组件
+import { install } from 'src/components/index.js'
 import 'assets/sass/style.scss';
 // import './styles/mixin.scss';
 
@@ -31,6 +32,8 @@ Vue.component('multiselect', Multiselect);
 Vue.use(ElementUI);
 Vue.use(vueWaves);
 Vue.use(vueSticky);
+// 注册组件
+Vue.use(install);
 
 
 // register global utility filters.

@@ -35,101 +35,100 @@
 <script>
 import bus from 'views/ishow/js/bus';
 import {
-    on,
-    off
+    on
 } from 'views/ishow/js/dom';
 import normalElement from './normal-template.vue';
 // import imgElement from './img-template.vue';
 export default {
-    data() {
-            return {
-                currentView: 'normalElement',
-                isActive: false,
-                visible2: false,
-                visible: false,
-                bgImage:''
-            }
-        },
-        name: 'main-show',
-        props: ['showJson', 'page', 'activePage','pageJson'],
-        components: {
-            normalElement
-        },
-        created() {
-            on(document, 'click', this.handleDocumentClick);
-            this.setActive();
-            this.setBgImage();
-            //更新背景图片
-             bus.$on('mainShow-update-img', function() {
-                this.setBgImage();
-            }.bind(this));
-            // this.json=this.showJson.json;
-            // console.info(this.json)
-        },
-        computed: {
-            getBackground() {
-                return this.setBgImage();
-            }
-        },
-        methods: {
-            //拼接背景css
-            setBgImage() {
-                var bgImage=this.pageJson[this.page-1].bgImage;
-                if (!bgImage) {
-                    return;
-                }
-                if(bgImage.url){
-                    return 'background: url(' + bgImage.url + ') center center / cover no-repeat;';
-                }
-                return 'background-color: '+bgImage.backgroundColor+' ;';   
-            },
-            handleDocumentClick() {
-                this.visible = false;
-            },
-            toggerActive() {
-                this.$parent.activePage = this.page;
-                bus.$emit('set-page', this.page);
-            },
-            setActive() {
-                this.isActive = this.activePage === this.page;
-            },
-            confirmDelete() {
-                this.visible2 = false;
-                this.visible = false;
-                bus.$emit('delete-page', this.page);
-            },
-            cancleDelete() {
-                this.visible2 = false;
-                this.visible = false;
-            },
-            //隐藏删除按钮
-            mouseoutDelete() {
-                if (!this.visible2) {
-                    this.visible = false;
-                }
-            },
+  data() {
+    return {
+      currentView: 'normalElement',
+      isActive: false,
+      visible2: false,
+      visible: false,
+      bgImage: ''
+    }
+  },
+  name: 'main-show',
+  props: ['showJson', 'page', 'activePage', 'pageJson'],
+  components: {
+    normalElement
+  },
+  created() {
+    on(document, 'click', this.handleDocumentClick);
+    this.setActive();
+    this.setBgImage();
+            // 更新背景图片
+    bus.$on('mainShow-update-img', () => {
+      this.setBgImage();
+    });
+    // this.json=this.showJson.json;
+    // console.info(this.json)
+  },
+  computed: {
+    getBackground() {
+      return this.setBgImage();
+    }
+  },
+  methods: {
+            // 拼接背景css
+    setBgImage() {
+      const bgImage = this.pageJson[this.page - 1].bgImage;
+      if (!bgImage) {
+        return;
+      }
+      if (bgImage.url) {
+        return 'background: url(' + bgImage.url + ') center center / cover no-repeat;';
+      }
+      return 'background-color: ' + bgImage.backgroundColor + ' ;';
+    },
+    handleDocumentClick() {
+      this.visible = false;
+    },
+    toggerActive() {
+      this.$parent.activePage = this.page;
+      bus.$emit('set-page', this.page);
+    },
+    setActive() {
+      this.isActive = this.activePage === this.page;
+    },
+    confirmDelete() {
+      this.visible2 = false;
+      this.visible = false;
+      bus.$emit('delete-page', this.page);
+    },
+    cancleDelete() {
+      this.visible2 = false;
+      this.visible = false;
+    },
+            // 隐藏删除按钮
+    mouseoutDelete() {
+      if (!this.visible2) {
+        this.visible = false;
+      }
+    },
             // setBgImage() {
             //     let json=this.parseJson(this.pageJson[this.page-1]);
             //     if(json.bgImage&&json.bgImage.url){
             //         this.bgImage=json.bgImage.url;
             //     }
             // },
-            parseJson(json) {
-                return JSON.parse(JSON.stringify(json));
-            }
+    parseJson(json) {
+      return JSON.parse(JSON.stringify(json));
+    }
 
-        },
-        watch: {
-            activePage() {
-                this.setActive();
-            },
-            //显示弹层也显示删除按钮
-            visible2(val) {
-                if (val === true) {
-                    this.visible = true;
-                }
-            }
-        }
+  },
+  watch: {
+    activePage() {
+      this.setActive();
+    },
+            // 显示弹层也显示删除按钮
+    visible2(val) {
+      if (val === true) {
+        this.visible = true;
+      }
+    }
+  }
 
 };
 </script>

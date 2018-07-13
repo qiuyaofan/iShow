@@ -11,16 +11,16 @@
 import navbar from './navbar.vue';
 import statusButton from './button.vue';
 export default {
-    data() {
-            return {
-                active: '',
-            };
-        },
-        props: ['showId', 'showJson', 'pageJson','renderJson','page','h5Json'],
-        components: {
-            navbar,
-            statusButton
-        }
+  data() {
+    return {
+      active: ''
+    };
+  },
+  props: ['showId', 'showJson', 'pageJson', 'renderJson', 'page', 'h5Json'],
+  components: {
+    navbar,
+    statusButton
+  }
 
 };
 </script>

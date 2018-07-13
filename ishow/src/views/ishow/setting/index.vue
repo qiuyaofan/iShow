@@ -54,97 +54,96 @@
 </template>
 <script>
 import picTool from 'views/ishow/global/picTool/index.vue';
-import { mapGetters } from 'vuex';
 import {
     getImgList,
     savePageConfig
 } from 'api/ishow';
 export default {
-    data() {
-        return {
-            disable:false,
-            activeName:'first',
-            coverUrl:'',
-            picJson:[],
-            settingForm:{
-                settingTitle:'',
-                settingSummary:'',
-                settingPic:''
-            },
-            ruleState: {
-                settingTitle: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
-                settingSummary: [{ required: true, message: '简介不能为空', trigger: 'blur' }]
-            },
+  data() {
+    return {
+      disable: false,
+      activeName: 'first',
+      coverUrl: '',
+      picJson: [],
+      settingForm: {
+        settingTitle: '',
+        settingSummary: '',
+        settingPic: ''
+      },
+      ruleState: {
+        settingTitle: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
+        settingSummary: [{ required: true, message: '简介不能为空', trigger: 'blur' }]
+      }
 
-        };
-    },
-    created() {
-        this.fetchImgList().then(function(data){
-            this.$refs.picTool.setLoading(false);
-        }.bind(this));
-    },
-    components: {
-        picTool
-    },
-    methods:{
-        //提交表单
-        submitSetting(formName) {
-            this.$refs[formName].validate((valid) => {
-            if (valid) {
-                this.fetchPageConfig();
-            } else {
-                console.log('error submit!!');
-                return false;
-            }
-            });
-        },
-        //提交配置
-        fetchPageConfig() {
-            console.info('this.$store',this.$store,this.$store.getters.activityId)
-            if(!this.$store.getters.activityId){
-                this.$message('保存当前场景后保存的配置才能生效');
-                return false;
-            }
-            let data={
-                id:this.$store.getters.activityId||'',
-                paramJson:JSON.stringify(this.settingForm)
-            };
-            let _this=this;
-            savePageConfig(data).then(response => {
-                console.info(response)
-                _this.toggle();
-            }).catch(err => {
-                console.info(err)
-            });
-        },
-        //获取本地图片
-        fetchImgList() {
-            return getImgList().then(response => {
-                this.picJson = this.changeToArray(response.data);
-            }).catch(err => {
-                console.info(err)
-            });
-        },
-        toggle() {
-            this.disable=!this.disable;
-        },
-        addElementCrop(json) {
-            this.coverUrl=json.url;
-            console.info('addElementCrop')
-        },
-        //json key 值返回
-        changeToArray(json) {
-            let url,
-                result = [];
-            for (url in json) {
-                result.push(url);
-            }
-            return result;
-        },
-        changePic() {
-            this.$refs.picTool.openTool(this.coverUrl);
+    };
+  },
+  created() {
+    this.fetchImgList().then(() => {
+      this.$refs.picTool.setLoading(false);
+    });
+  },
+  components: {
+    picTool
+  },
+  methods: {
+    // 提交表单
+    submitSetting(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.fetchPageConfig();
+        } else {
+          console.log('error submit!!');
+          return false;
         }
+      });
+    },
+    // 提交配置
+    fetchPageConfig() {
+      console.info('this.$store', this.$store, this.$store.getters.activityId)
+      if (!this.$store.getters.activityId) {
+        this.$message('保存当前场景后保存的配置才能生效');
+        return false;
+      }
+      const data = {
+        id: this.$store.getters.activityId || '',
+        paramJson: JSON.stringify(this.settingForm)
+      };
+      const _this = this;
+      savePageConfig(data).then(response => {
+        console.info(response)
+        _this.toggle();
+      }).catch(err => {
+        console.info(err)
+      });
+    },
+        // 获取本地图片
+    fetchImgList() {
+      return getImgList().then(response => {
+        this.picJson = this.changeToArray(response.data);
+      }).catch(err => {
+        console.info(err)
+      });
+    },
+    toggle() {
+      this.disable = !this.disable;
+    },
+    addElementCrop(json) {
+      this.coverUrl = json.url;
+      console.info('addElementCrop')
+    },
+    // json key 值返回
+    changeToArray(json) {
+      let url;
+      const result = [];
+      for (url in json) {
+        result.push(url);
+      }
+      return result;
+    },
+    changePic() {
+      this.$refs.picTool.openTool(this.coverUrl);
     }
+  }
 };
 </script>
 
