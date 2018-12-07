@@ -142,7 +142,7 @@ swiper：[http://www.swiper.com.cn/api/index.html](http://www.swiper.com.cn/api/
 
 目前编辑器是用mock实现模拟接口，如果需要换回自己的接口
 
-1.去除config.js的mock调用
+1.去除src/main.js的mock调用
 
 2.修改utils/fetch.js代码
 
